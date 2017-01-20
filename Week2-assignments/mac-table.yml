@@ -1,0 +1,9 @@
+---
+- name:  Collect MAC-address table from IOS Switches
+  hosts: ios-switches
+  
+  tasks:
+  - name: Gather MAC-address table from IOS Switches
+    ios_command:
+      commands: "show mac address-table"
+      provider: "{{ios_provider}}" 
