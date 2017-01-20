@@ -1,0 +1,111 @@
+ansible_net_all_ipv4_addresses:
+- 172.16.1.147
+- 10.255.45.5
+- 10.255.35.5
+- 10.255.200.3
+- 10.255.255.5
+- 172.16.1.245
+ansible_net_all_ipv6_addresses: []
+ansible_net_filesystems:
+- 'flash0:'
+ansible_net_gather_subset:
+- hardware
+- default
+- interfaces
+ansible_net_hostname: R5
+ansible_net_image: flash0:/vios-adventerprisek9-m
+ansible_net_interfaces:
+    GigabitEthernet0/0:
+        bandwidth: 1000000
+        description: null
+        duplex: null
+        ipv4:
+            address: 10.255.200.3
+            masklen: 24
+        lineprotocol: 'up '
+        macaddress: 00ed.a0a7.ec00
+        mediatype: RJ45
+        mtu: 1500
+        operstatus: up
+        type: iGbE
+    GigabitEthernet0/0.10:
+        bandwidth: 1000000
+        description: null
+        duplex: null
+        ipv4:
+            address: 172.16.1.147
+            masklen: 28
+        lineprotocol: 'up '
+        macaddress: 00ed.a0a7.ec00
+        mediatype: null
+        mtu: 1500
+        operstatus: up
+        type: iGbE
+    GigabitEthernet0/1:
+        bandwidth: 1000000
+        description: null
+        duplex: null
+        ipv4:
+            address: 10.255.35.5
+            masklen: 24
+        lineprotocol: 'up '
+        macaddress: 00ed.a0a7.ec01
+        mediatype: RJ45
+        mtu: 1500
+        operstatus: up
+        type: iGbE
+    GigabitEthernet0/2:
+        bandwidth: 1000000
+        description: null
+        duplex: null
+        ipv4:
+            address: 10.255.45.5
+            masklen: 24
+        lineprotocol: 'up '
+        macaddress: 00ed.a0a7.ec02
+        mediatype: RJ45
+        mtu: 1500
+        operstatus: up
+        type: iGbE
+    GigabitEthernet0/3:
+        bandwidth: 1000000
+        description: null
+        duplex: Auto
+        ipv4: null
+        lineprotocol: 'down '
+        macaddress: 00ed.a0a7.ec03
+        mediatype: RJ45
+        mtu: 1500
+        operstatus: administratively down
+        type: iGbE
+    Loopback0:
+        bandwidth: 8000000
+        description: null
+        duplex: null
+        ipv4:
+            address: 10.255.255.5
+            masklen: 32
+        lineprotocol: 'up '
+        macaddress: 10.255.255.5/32
+        mediatype: null
+        mtu: 1514
+        operstatus: up
+        type: null
+    Loopback1:
+        bandwidth: 8000000
+        description: null
+        duplex: null
+        ipv4:
+            address: 172.16.1.245
+            masklen: 32
+        lineprotocol: 'up '
+        macaddress: 172.16.1.245/32
+        mediatype: null
+        mtu: 1514
+        operstatus: up
+        type: null
+ansible_net_memfree_mb: 68351
+ansible_net_memtotal_mb: 314950
+ansible_net_model: IOSv
+ansible_net_serialnum: 9OQR3KWYA6WTQ7PI8Z5PG
+ansible_net_version: 15.6(2)T
