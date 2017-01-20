@@ -4,7 +4,7 @@ Easy wins - Target is to create very simple reporting tool
 
 ## What is the problem to solve?
 
-Have you ever replaced a broken switch with new one in a rack full of cables and the switch somewhere in the middle? Been there, seen that but still can't help you. However, my goal is to help you a bit still. 
+Have you ever replaced a broken switch with new one in a rack full of cables and the switch somewhere in the middle? Been there, seen that but still can't help you in the dirty work. However, my goal is to help you a bit still. 
 
 What if you can have a reporting tool with following features:
 * Collects Switchport status information (Up or Down) before and after replacement and shows the difference?
