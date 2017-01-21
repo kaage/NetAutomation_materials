@@ -5,7 +5,7 @@ SW10>show mac address-table
 Vlan    Mac Address       Type        Ports
 ----    -----------       --------    -----
    1    0000.0c07.ac01    DYNAMIC     Gi0/1
-   1    00ed.a02d.0500    DYNAMIC     Gi2/0
+   1    00ed.a02d.0500    DYNAMIC     Gi2/1
    1    00ed.a053.2900    DYNAMIC     Gi0/1
    1    00ed.a0af.5f00    DYNAMIC     Gi0/0
   10    0000.0c07.ac0a    DYNAMIC     Gi0/1
