@@ -17,3 +17,7 @@ With this utility you will very quickly see:
 ## How to get MAC-address tables out from the devices?
 
 I think the easiest way to get MAC-address tables in Ansible is using NAPALM. However I discovered a bug in NAPALM and need to wait for fix: [https://github.com/napalm-automation/napalm-ios/issues/104](https://github.com/napalm-automation/napalm-ios/issues/104)
+
+## Report format
+
+MAC-address tables are pushed into github repository to see changes in visual format
