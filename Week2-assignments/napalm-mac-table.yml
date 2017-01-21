@@ -4,8 +4,7 @@
   tasks:
   - name: get facts from device
     napalm_get_facts:
-      dev_os={{ os }}
-      filter=facts
+      filter: 'mac_address_table'
       provider: "{{ios_provider}}"
     register: result
 

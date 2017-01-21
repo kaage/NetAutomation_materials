@@ -6,3 +6,4 @@ ios_provider:
   authorize: yes
   auth_pass: "{{ansible_ssh_pass}}"
   transport: cli
+  dev_os: ios

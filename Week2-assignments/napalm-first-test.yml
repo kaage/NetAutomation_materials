@@ -1,0 +1,15 @@
+---
+- name: Coolect MAC-addss tables from IOS Switches via NAPALM
+  hosts: ios-switches
+  tasks:
+  - name: get facts from device
+    napalm_get_facts:
+      hostname={{ inventory_hostname }}
+      username=cisco
+      dev_os=ios
+      password=cisco
+      filter='facts,interfaces,bgp_neighbors'
+    register: result
+
+  - name: print data
+    debug: var=result
