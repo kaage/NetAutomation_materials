@@ -1,0 +1,20 @@
+---
+- name: Collect Interface UP/DOWN status information from IOS Switches via NAPALM
+  hosts: ios-switches
+
+  vars:
+  - results: results
+
+  tasks:
+  - name: Create directory for results
+    file: path={{results}} state=directory
+    run_once: true
+
+  - name: Get Interface information from device
+    napalm_get_facts:
+      filter: 'interfaces'
+      provider: "{{ios_provider}}"
+    register: result
+  
+  - name: Convert results to YAML and save to file
+    copy: content="{{result.ansible_facts|to_nice_yaml(indent=4)}}" dest={{results}}/{{inventory_hostname}}-if-info.yml

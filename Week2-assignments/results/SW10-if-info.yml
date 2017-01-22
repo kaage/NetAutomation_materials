@@ -1,0 +1,120 @@
+interfaces:
+    GigabitEthernet0/0:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f800
+        speed: 1000
+    GigabitEthernet0/1:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f801
+        speed: 1000
+    GigabitEthernet0/2:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f802
+        speed: 1000
+    GigabitEthernet0/3:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f803
+        speed: 1000
+    GigabitEthernet1/0:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f804
+        speed: 1000
+    GigabitEthernet1/1:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f805
+        speed: 1000
+    GigabitEthernet1/2:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f806
+        speed: 1000
+    GigabitEthernet1/3:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f807
+        speed: 1000
+    GigabitEthernet2/0:
+        description: H1
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f808
+        speed: 1000
+    GigabitEthernet2/1:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f809
+        speed: 1000
+    GigabitEthernet2/2:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f80a
+        speed: 1000
+    GigabitEthernet2/3:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f80b
+        speed: 1000
+    GigabitEthernet3/0:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f80c
+        speed: 1000
+    GigabitEthernet3/1:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f80d
+        speed: 1000
+    GigabitEthernet3/2:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f80e
+        speed: 1000
+    GigabitEthernet3/3:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.f80f
+        speed: 1000
+    Vlan1:
+        description: N/A
+        is_enabled: true
+        is_up: true
+        last_flapped: -1.0
+        mac_address: 00ed.a022.8001
+        speed: 1000
