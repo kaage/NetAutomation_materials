@@ -1,0 +1,19 @@
+Interface: Admin:  Oper: MAC-addresses:
+----------------------------------------------------------------------------
+GigabitEthernet1/2   True   True
+GigabitEthernet1/3   True   True
+GigabitEthernet1/0   True   True
+GigabitEthernet1/1   True   True
+GigabitEthernet0/3   True   True
+GigabitEthernet0/2   True   True
+GigabitEthernet0/1   True   True
+GigabitEthernet0/0   True   True
+GigabitEthernet3/0   True   True
+GigabitEthernet3/1   True   True
+GigabitEthernet3/2   True   True
+GigabitEthernet3/3   True   True
+Vlan1   True   True
+GigabitEthernet2/1   True   True
+GigabitEthernet2/0   True   True
+GigabitEthernet2/3   True   True
+GigabitEthernet2/2   True   True

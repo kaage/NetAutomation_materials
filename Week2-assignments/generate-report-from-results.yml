@@ -1,0 +1,39 @@
+---
+- name:  Read device data from saved .YML files. Generate text report.
+  hosts: ios-switches
+  vars:
+  - results: results
+  - path_report: "{{results}}/{{inventory_hostname}}-if-mac-report.yml"
+
+  tasks:
+  - include_vars: "{{results}}/{{inventory_hostname}}-if-info.yml"
+  - include_vars: "{{results}}/{{inventory_hostname}}-mac-table.yml"
+
+  - name: Delete former report file
+    file: path="{{path_report}}" state=absent
+ 
+  - name: Create final report file
+    file: path="{{path_report}}" state=touch
+ 
+  - name: Insert header line to report
+    lineinfile:
+      dest:   "{{path_report}}"
+      line:  "{{'%0s %6s %6s %10s'|format('Interface:','Admin:','Oper:','MAC-addresses:')}}"
+
+  - name: Insert header line to report
+    lineinfile:
+      dest:   "{{path_report}}"
+      line:  "----------------------------------------------------------------------------"
+
+  - name: Generate interface list with up/down information
+    lineinfile:
+      dest:   "{{path_report}}"
+      regexp: "{{ item.key }}"
+      line:  "{{'%0s %6s %6s'|format(item.key,item.value.is_enabled,item.value.is_up)}}" 
+    with_dict: "{{ interfaces }}"
+# - name: Add MAC-addresses into existing lines
+#    lineinfile:
+#      dest:   "{{path_report}}"
+#      regexp: "{{ item.interface }}"
+#      line:  "{{'%0s '|format(item.mac)}}" 
+#    with_items: "{{ mac_address_table }}"

@@ -18,3 +18,9 @@
   
   - name: Convert results to YAML and save to file
     copy: content="{{result.ansible_facts|to_nice_yaml(indent=4)}}" dest={{results}}/{{inventory_hostname}}-if-info.yml
+
+  - name: Reformat interface naming to short naming convention
+    replace:
+      destfile: "{{results}}/{{inventory_hostname}}-if-info.yml"
+      regexp: 'GigabitEthernet'
+      replace: 'Gi'

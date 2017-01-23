@@ -1,0 +1,12 @@
+---
+- name:  Read device data from saved .YML files. Print to debug.
+  hosts: ios-switches
+  vars:
+  - results: results
+
+  tasks:
+  - include_vars: "{{results}}/{{inventory_hostname}}-if-info.yml"
+
+  - debug:
+      msg: "Interface: {{ item.key }} Adminstatus: {{ item.value.is_enabled }}  Operstatus: {{ item.value.is_up}} "
+    with_dict: "{{ interfaces }}"
