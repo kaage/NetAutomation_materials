@@ -4,29 +4,29 @@ interfaces:
         is_enabled: true
         is_up: true
         last_flapped: -1.0
-        mac_address: 00ed.a083.d400
+        mac_address: 00ed.a083.d401
         speed: 1000
     Gi0/1:
         description: N/A
         is_enabled: true
         is_up: true
         last_flapped: -1.0
-        mac_address: 00ed.a083.d401
+        mac_address: 00ed.a083.d402
         speed: 1000
     Gi0/2:
         description: N/A
         is_enabled: true
         is_up: true
         last_flapped: -1.0
-        mac_address: 00ed.a083.d402
+        mac_address: 00ed.a083.d403
         speed: 1000
     Gi0/3:
         description: N/A
         is_enabled: true
         is_up: true
         last_flapped: -1.0
-        mac_address: 00ed.a083.d403
-        speed: 1000
+        mac_address: N/A
+        speed: -1
     Gi1/0:
         description: N/A
         is_enabled: true
@@ -88,21 +88,21 @@ interfaces:
         is_enabled: true
         is_up: true
         last_flapped: -1.0
-        mac_address: 00ed.a083.d40c
+        mac_address: 00ed.a083.d400
         speed: 1000
     Gi3/1:
         description: N/A
         is_enabled: true
         is_up: true
         last_flapped: -1.0
-        mac_address: 00ed.a083.d40d
+        mac_address: 00ed.a083.d40c
         speed: 1000
     Gi3/2:
         description: N/A
         is_enabled: true
         is_up: true
         last_flapped: -1.0
-        mac_address: 00ed.a083.d40e
+        mac_address: 00ed.a083.d40d
         speed: 1000
     Gi3/3:
         description: N/A
