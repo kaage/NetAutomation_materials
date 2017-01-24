@@ -33,21 +33,21 @@ MAC-address tables and Interface informations are combined into single file usin
 Example of Report format:
 
 `Int:	Admin:	Oper:	MAC-addresses:`
-----------------------------------------------------------------------------
-Gi0/0	True		True  00ed.a0e3.9000 00ed.a0e3.9000
-Gi0/1	True		True  0000.0c07.ac01 00ed.a0a7.ec00 0000.0c07.ac0a
-Gi0/2	True		True 
-Gi0/3	True		True 
-Gi1/0	True		True 
-Gi1/1	True		True 
-Gi1/2	True		True 
-Gi1/3	True		True 
-Gi2/0	True		True  00ed.a052.0d00
-Gi2/1	True		True 
-Gi2/2	True		True 
-Gi2/3	True		True 
-Gi3/0	True		True 
-Gi3/1	True		True 
-Gi3/2	True		True 
-Gi3/3	True		True 
+`----------------------------------------------------------------------------`
+`Gi0/0	True		True  00ed.a0e3.9000 00ed.a0e3.9000`
+`Gi0/1	True		True  0000.0c07.ac01 00ed.a0a7.ec00 0000.0c07.ac0a`
+`Gi0/2	True		True` 
+`Gi0/3	True		True` 
+`Gi1/0	True		True` 
+`Gi1/1	True		True` 
+`Gi1/2	True		True` 
+`Gi1/3	True		True` 
+`Gi2/0	True		True  00ed.a052.0d00`
+`Gi2/1	True		True` 
+`Gi2/2	True		True` 
+`Gi2/3	True		True` 
+`Gi3/0	True		True` 
+`Gi3/1	True		True` 
+`Gi3/2	True		True`
+`Gi3/3	True		True`
 `Vlan1	True		True`
