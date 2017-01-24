@@ -1,0 +1,8 @@
+---
+- name: Commits changes of files to git by calling shell script
+  hosts: ios-switches
+
+  tasks:
+  - name: Call shell script
+    local_action: command /vagrant/NetAutomation_materials/Week2-assignments/gitcommit.sh
+    run_once: true
