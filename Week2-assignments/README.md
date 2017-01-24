@@ -33,7 +33,7 @@ MAC-address tables and Interface informations are combined into single file usin
 Example of Report format:
 
 ```
-Int:	Admin:	 Oper:	MAC-addresses:
+Int:	Admin:	    Oper:	MAC-addresses:
 ----------------------------------------------------------------------------
 Gi0/0	True		True  00ed.a0e3.9000 00ed.a0e3.9000
 Gi0/1	True		True  0000.0c07.ac01 00ed.a0a7.ec00 0000.0c07.ac0a
