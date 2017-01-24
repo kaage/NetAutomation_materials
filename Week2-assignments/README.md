@@ -18,17 +18,19 @@ With this utility you will very quickly see:
 
 I think the easiest way to get MAC-address tables in Ansible is using NAPALM. However I discovered a bug in NAPALM but it is fixed in the development branch of NAPALM: [https://github.com/napalm-automation/napalm-ios/issues/104](https://github.com/napalm-automation/napalm-ios/issues/104)
 
-napalm-mac-table-yaml.yml does the job.
+*napalm-mac-table-yaml.yml* does the job.
 
 ## How to get interface information out from the devices?
 
 There are multiple ways to get interface information. I decided to use NAPALM with "interfaces" filter as I was using NAPALM ansible module already
 
-napalm-interfaces-yaml.yml does the job.
+*napalm-interfaces-yaml.yml* does the job.
 
 ## How to combine MAC-table and interface information together?
 
-MAC-address tables and Interface informations are combined into single file using Jinja2 template (interface-mac-report.j2)
+MAC-address tables and Interface informations are combined into single file using Jinja2 template *interface-mac-report.j2*
+
+*generate-report-from-results.yml* does the job.
 
 Example of Report format:
 
