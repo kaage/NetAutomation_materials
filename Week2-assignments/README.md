@@ -50,5 +50,4 @@ Gi3/0	True		True
 Gi3/1	True		True 
 Gi3/2	True		True 
 Gi3/3	True		True 
-Vlan1	True		True 
-`
+Vlan1	True		True`
