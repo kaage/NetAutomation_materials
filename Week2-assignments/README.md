@@ -55,3 +55,7 @@ Gi3/2	True		True
 Gi3/3	True		True
 Vlan1	True		True
 ```
+
+## Putting all together
+
+*collect-mac-if-info-and-generate-report.yml* is Ansible playbook which calls all other plays and does everything: Collects MAC-tables and interface Up/Down information and generates report.
