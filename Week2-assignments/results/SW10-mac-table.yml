@@ -7,7 +7,7 @@ mac_address_table:
     static: false
     vlan: 1
 -   active: true
-    interface: Gi2/0
+    interface: Gi2/1
     last_move: -1.0
     mac: 00ed.a02d.0500
     moves: -1
