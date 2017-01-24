@@ -1,7 +1,8 @@
 ---
 - include: napalm-mac-table-yaml.yml
+  tags: collect
 - include: napalm-interfaces-yaml.yml
+  tags: collect
 - include: generate-report-from-results.yml
 - include: git-commit.yml
-  tags:
-    - commit
+  tags: commit
