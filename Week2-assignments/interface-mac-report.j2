@@ -1,0 +1,6 @@
+Int:	Admin:	Oper:	MAC-addresses:
+----------------------------------------------------------------------------
+{% for ifname,ifdict in interfaces|dictsort %}
+{{ifname}}	{{ifdict.is_enabled}}		{{ifdict.is_up}} {% for macdict in mac_address_table %}{% if ifname == macdict.interface %} {{macdict.mac}}{% endif %}{% endfor %}
+
+{% endfor %}
