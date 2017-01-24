@@ -1,6 +1,6 @@
-Int:	Admin:	Oper:	MAC-addresses:
+{{ "%-12s%-8s%-9s%-14s"|format('Interface:','Admin:','Oper:','MAC-addresses:') }}
 ----------------------------------------------------------------------------
 {% for ifname,ifdict in interfaces|dictsort %}
-{{ifname}}	{{ifdict.is_enabled}}		{{ifdict.is_up}} {% for macdict in mac_address_table %}{% if ifname == macdict.interface %} {{macdict.mac}}{% endif %}{% endfor %}
+{{"%-12s%-8s%-8s"|format(ifname,ifdict.is_enabled,ifdict.is_up)}}{% for macdict in mac_address_table %}{% if ifname == macdict.interface %} {{macdict.mac}}{% endif %}{% endfor %}
 
 {% endfor %}
