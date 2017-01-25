@@ -63,3 +63,8 @@ Vlan1	True		True
 * Collects interface Up/Down information
 * Generates report
 * Commit changed report files to github
+
+You can use following tags to run or skip individual parts of the playbook:
+* collect
+* report
+* commit
