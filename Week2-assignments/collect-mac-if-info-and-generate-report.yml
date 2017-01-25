@@ -4,5 +4,6 @@
 - include: napalm-interfaces-yaml.yml
   tags: collect
 - include: generate-report-from-results.yml
+  tags: report
 - include: git-commit.yml
   tags: commit
