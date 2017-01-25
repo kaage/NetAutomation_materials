@@ -1,0 +1,10 @@
+---
+- name: Tag testing
+  hosts: R1
+
+  tasks:
+  - debug: msg="Pekka"
+    tags: pekka
+
+  - debug: msg="poo"
+    tags: poo
