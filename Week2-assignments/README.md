@@ -30,7 +30,7 @@ There are multiple ways to get interface information. I decided to use NAPALM wi
 
 MAC-address tables and Interface informations are combined into single file using Jinja2 template *interface-mac-report.j2*
 
-*generate-report-from-results.yml* does the job.
+*generate-report-from-results.yml* does the job. It creates file named: *hostname-if-mac-report.yml* in *results* directory.
 
 Example of Report format:
 
@@ -55,6 +55,9 @@ Gi3/2	True		True
 Gi3/3	True		True
 Vlan1	True		True
 ```
+
+See link below as an example of swapped cables:
+[https://github.com/kaage/NetAutomation_materials/commit/5749d630a403e0e6ebfb94a2ac8b0d3bc2edf1b4](https://github.com/kaage/NetAutomation_materials/commit/5749d630a403e0e6ebfb94a2ac8b0d3bc2edf1b4)
 
 ## Putting all together
 
