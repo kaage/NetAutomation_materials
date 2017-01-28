@@ -1,0 +1,14 @@
+#
+# L3VPN service data model definition
+#
+# Data model
+# * Dictionary of L3VPNs
+# * Each L3VPN has
+#   - Connection to Firewall (TRUE or FALSE)
+#   - dictionary of list of MPLS sites
+---
+vrfA:
+  connection_to_firewall: TRUE
+  sites: 
+    - S1
+    - S2

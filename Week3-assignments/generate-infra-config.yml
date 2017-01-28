@@ -1,0 +1,16 @@
+---
+- name:  Reads infrastructure data-model .YML file and corresponding jinja2 template and genereates node specific configurations
+  hosts: ios-routers
+  gather_facts: no
+
+  vars:
+  - path_configs: "infra/config/"
+
+  tasks:
+  - name: Create directory for results
+    file: path={{path_configs}} state=directory
+    run_once: true
+
+  - include_vars: "infra-datamodel-mpls-backbone.yml"
+
+  - template: src="infra/infra-config-template-mpls-backbone.j2" dest={{path_configs}}{{inventory_hostname}}-infrastucture-config.cfg
