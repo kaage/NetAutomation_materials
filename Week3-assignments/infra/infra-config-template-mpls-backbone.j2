@@ -1,10 +1,11 @@
+#jinja2: lstrip_blocks: True
 !
 version 15.6
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
 !
-hostname {{inventory_hostname}}
+hostname {{ inventory_hostname }}
 !
 boot-start-marker
 boot-end-marker
@@ -74,11 +75,26 @@ ip tcp synwait-time 5
 !
 !
 interface Loopback0
- ip address {{nodes.get(inventory_hostname).lo0_ip}} 255.255.255.255
+ ip address {{ nodes.get(inventory_hostname).lo0_ip }} 255.255.255.255
 !
+{% if inventory_hostname != "R1" %}
+{% for subnet in non_mpls_subnets %}
+{% for node,nodevalue in subnet.nodes | dictsort %}
+{% if node == inventory_hostname %}
+interface {{ nodevalue.int }}
+ ip address {{ nodevalue.ip }} {{ subnet.subnet_mask }}
+ standby 1 ip {{ subnet.vrrp_ip }}
+ duplex auto
+ speed auto
+ media-type rj45
+!
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
 {% if fw_subnet.nodes.get(inventory_hostname) %}
-interface {{fw_subnet.nodes.get(inventory_hostname).int}}
- ip address {{fw_subnet.nodes.get(inventory_hostname).ip}} {{fw_subnet.subnet_mask}}
+interface {{ fw_subnet.nodes.get(inventory_hostname).int }}
+ ip address {{ fw_subnet.nodes.get(inventory_hostname).ip }} {{ fw_subnet.subnet_mask }}
  duplex auto
  speed auto
  media-type rj45
@@ -106,48 +122,53 @@ interface {{ mpls_link.right_port }}
 {% endfor %}
 !
 router ospf 1
+ {% if inventory_hostname != "R1" %}
+ passive-interface GigabitEthernet0/0
+ {% endif %}
  network 0.0.0.0 255.255.255.255 area 0
+ {% if inventory_hostname == "R1" %}
  default-information originate always
+ {% endif %}
 !
+{% if nodes.get(inventory_hostname).route_reflector is defined %}
 router bgp 1
- bgp router-id 10.255.255.1
+ bgp router-id {{ nodes.get(inventory_hostname).lo0_ip }}
  bgp log-neighbor-changes
- neighbor 10.255.255.2 remote-as 1
- neighbor 10.255.255.2 update-source Loopback0
- neighbor 10.255.255.3 remote-as 1
- neighbor 10.255.255.3 update-source Loopback0
- neighbor 10.255.255.4 remote-as 1
- neighbor 10.255.255.4 update-source Loopback0
- neighbor 10.255.255.5 remote-as 1
- neighbor 10.255.255.5 update-source Loopback0
+ {% for nodename,nodevalue in nodes | dictsort %}
+ neighbor {{ nodes[nodename].lo0_ip }} remote-as 1
+ neighbor {{ nodes[nodename].lo0_ip }} update-source Loopback0
+ {% endfor %}
  !
  address-family vpnv4
-  neighbor 10.255.255.2 activate
-  neighbor 10.255.255.2 send-community both
-  neighbor 10.255.255.2 route-reflector-client
-  neighbor 10.255.255.3 activate
-  neighbor 10.255.255.3 send-community both
-  neighbor 10.255.255.3 route-reflector-client
-  neighbor 10.255.255.4 activate
-  neighbor 10.255.255.4 send-community both
-  neighbor 10.255.255.4 route-reflector-client
-  neighbor 10.255.255.5 activate
-  neighbor 10.255.255.5 send-community both
-  neighbor 10.255.255.5 route-reflector-client
+  {% for nodename,nodevalue in nodes | dictsort %}
+  neighbor {{ nodes[nodename].lo0_ip }} activate
+  neighbor {{ nodes[nodename].lo0_ip }} send-community both
+  {% endfor %}
  exit-address-family
  !
- address-family ipv4 vrf A
-  network 0.0.0.0
-  default-information originate
+{% else %}
+router bgp 1
+ bgp router-id {{ nodes.get(inventory_hostname).lo0_ip }}
+ bgp log-neighbor-changes
+ neighbor 10.255.255.1 remote-as 1
+ neighbor 10.255.255.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 10.255.255.1 activate
+  neighbor 10.255.255.1 send-community both
  exit-address-family
+ !
+!
+{% endif %}
 !
 ip forward-protocol nd
 !
 !
 no ip http server
 no ip http secure-server
-ip route 0.0.0.0 0.0.0.0 10.0.1.1
-ip route vrf A 0.0.0.0 0.0.0.0 172.16.1.1
+{% if inventory_hostname == "R1" %}
+ip route 0.0.0.0 0.0.0.0 {{ fw_subnet.nodes.FW1.ip }}
+{% endif %}
 !
 !
 snmp-server community cisco RO
@@ -159,33 +180,6 @@ snmp-server chassis-id
 !
 control-plane
 !
-banner exec ^C
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************^C
-banner incoming ^C
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************^C
-banner login ^C
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************^C
 !
 line con 0
  exec-timeout 0 0
@@ -207,5 +201,3 @@ line vty 5 15
 no scheduler allocate
 !
 end
-
-R1#

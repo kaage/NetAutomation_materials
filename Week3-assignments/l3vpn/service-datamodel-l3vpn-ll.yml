@@ -1,0 +1,30 @@
+
+#
+# L3VPN service Low Level data model definition
+#
+# Data model
+# Common parameters:
+# * vrf name
+# * rd and rt
+#
+# List of VRFs Containing
+# * List of PE devices containing PE-specific parameters:
+#   * PE name
+#   * interfaces inside VRF
+#     * subnet information
+#     * static routes
+
+---
+l3vpns:
+  - A:
+      list-of-sites:
+  
+        - S1
+  
+        - S2
+  - B:
+      list-of-sites:
+  
+        - S1
+  
+        - S2

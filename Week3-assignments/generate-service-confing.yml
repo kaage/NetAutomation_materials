@@ -1,0 +1,18 @@
+---
+- name:  Reads High Level Service and infrastructure data-model .YML file and corresponding jinja2 template and generates low lewel service data model
+  hosts: ios-routers
+  gather_facts: no
+
+  vars:
+  - path_configs: "l3vpn"
+
+  tasks:
+  - name: Create directory for results
+    file: path={{path_configs}} state=directory
+    run_once: true
+
+  - include_vars: "infra-datamodel-mpls-backbone.yml"
+  - include_vars: "service-datamodel-l3vpn-hl.yml"
+
+  - template: src="l3vpn/service-config-template-l3vpn-hl.j2" dest={{path_configs}}/service-datamodel-l3vpn-ll.yml
+    run_once: true

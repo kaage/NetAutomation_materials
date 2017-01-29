@@ -17,20 +17,18 @@ mpls_links:
      right: R4, right_ip: 10.255.45.4, right_port: GigabitEthernet0/2}
 
 non_mpls_subnets:
-  - subnet:
-      - subnet_ips: 10.255.100.0/24
-      - vrrp_ip: .1
-      - nodes:
-          - R3: {int: GigabitEthernet0/0, ip: .3, vrrp: TRUE}
-          - R2: {int: GigabitEthernet0/0, ip: .2, vrrp: TRUE}
-          - SW10: {int: Vlan1, ip: .10}
-  - subnet:
-      - subnet_ips: 10.255.200.0/24
-      - vrrp_ip: .1
-      - nodes:
-          - R5: {int: GigabitEthernet0/0, ip: .3, vrrp: TRUE}
-          - R4: {int: GigabitEthernet0/0, ip: .2, vrrp: TRUE}
-          - SW20: {int: Vlan1, ip: .10}
+  - subnet_mask: 255.255.255.0
+    vrrp_ip: 10.255.100.1
+    nodes:
+      R3: {int: GigabitEthernet0/0, ip: 10.255.100.3, vrrp: TRUE}
+      R2: {int: GigabitEthernet0/0, ip: 10.255.100.2, vrrp: TRUE}
+      SW10: {int: Vlan1, ip: 10.255.100.10}
+  - subnet_mask: 255.255.255.0
+    vrrp_ip: 10.255.200.1
+    nodes:
+      R5: {int: GigabitEthernet0/0, ip: 10.255.200.3, vrrp: TRUE}
+      R4: {int: GigabitEthernet0/0, ip: 10.255.200.2, vrrp: TRUE}
+      SW20: {int: Vlan1, ip: 10.255.200.10}
 
 fw_subnet:
   subnet_mask: 255.255.255.0
@@ -38,16 +36,25 @@ fw_subnet:
     R1:
       int: GigabitEthernet0/0
       ip: 10.0.1.2
-    FW1: {int: Ethernet1/2, ip: .1, default_router: TRUE}
+    FW1: 
+      int: Ethernet1/2
+      ip: 10.0.1.1
+      default_router: TRUE
 
 nodes:
   R1:
     lo0_ip: 10.255.255.1
+    route_reflector: TRUE
+    site: S3
   R2:
     lo0_ip: 10.255.255.2
+    site: S1
   R3:
     lo0_ip: 10.255.255.3
+    site: S1
   R4:
     lo0_ip: 10.255.255.4
+    site: S2
   R5:
     lo0_ip: 10.255.255.5
+    site: S2

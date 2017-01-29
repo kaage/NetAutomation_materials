@@ -1,0 +1,26 @@
+#jinja2: lstrip_blocks: True
+
+#
+# L3VPN service Low Level data model definition
+#
+# Data model
+# Common parameters:
+# * vrf name
+# * rd and rt
+#
+# List of VRFs Containing
+# * List of PE devices containing PE-specific parameters:
+#   * PE name
+#   * interfaces inside VRF
+#     * subnet information
+#     * static routes
+
+---
+l3vpns:
+{% for l3vpn in l3vpns %}
+  - {{ l3vpn.keys()[0] }}:
+      list-of-sites:
+{% for site in l3vpn.values()[0].sites %}  
+        - {{ site }}
+{% endfor %}
+{% endfor %}
