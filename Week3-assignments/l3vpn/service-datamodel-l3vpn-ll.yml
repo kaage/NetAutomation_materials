@@ -17,14 +17,83 @@
 ---
 l3vpns:
   - A:
+      rd: 1:1
       list-of-sites:
-  
         - S1
-  
+          - R2
+              interfaces:
+                interface: GigabitEthernet0/0.110
+                ip: iippari
+                mask: maski
+                vrrp_ip: verppi
+                vlan_id: 110
+          - R3
+              interfaces:
+                interface: GigabitEthernet0/0.110
+                ip: iippari
+                mask: maski
+                vrrp_ip: verppi
+                vlan_id: 110
         - S2
+          - R4
+              interfaces:
+                interface: GigabitEthernet0/0.110
+                ip: iippari
+                mask: maski
+                vrrp_ip: verppi
+                vlan_id: 110
+          - R5
+              interfaces:
+                interface: GigabitEthernet0/0.110
+                ip: iippari
+                mask: maski
+                vrrp_ip: verppi
+                vlan_id: 110
+        - S3
+          - R1
+            interfaces:
+              interface: GigabitEthernet0/0.110
+              ip: 172.16.1.2
+              mask: 255.255.255.0
+              vlan_id: 110
+              route_to_nexthop: 0.0.0.0 0.0.0.0 172.16.1.1
+          - FW1
+            interfaces:
+              interface: Ethernet1/2.110
+              ip: 172.16.1.1
+              mask: 255.255.255.0
+              vlan_id: 110
+              route_to_nexthop: vrf-osoitteet 172.16.1.2
   - B:
+      rd: 1:2
       list-of-sites:
-  
         - S1
-  
-        - S2
+          - R2
+              interfaces:
+                interface: GigabitEthernet0/0.120
+                ip: iippari
+                mask: maski
+                vrrp_ip: verppi
+                vlan_id: 120
+          - R3
+              interfaces:
+                interface: GigabitEthernet0/0.120
+                ip: iippari
+                mask: maski
+                vrrp_ip: verppi
+                vlan_id: 120
+        - S3
+          - R1
+            interfaces:
+              interface: GigabitEthernet0/0.120
+              ip: 172.16.2.2
+              mask: 255.255.255.0
+              vlan_id: 120
+              route_to_nexthop: 0.0.0.0 0.0.0.0 172.16.2.1
+          - FW1
+            interfaces:
+              interface: Ethernet1/2.120
+              ip: 172.16.2.1
+              mask: 255.255.255.0
+              vlan_id: 120
+              route_to_nexthop: vrf-osoitteet 172.16.2.2
