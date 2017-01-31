@@ -20,86 +20,89 @@ l3vpns:
       rd: 1:1
       list-of-sites:
         - S1
-          site_prefix: 172.16.1.128/28
           nodes:
           - R2
               interfaces:
                 interface: GigabitEthernet0/0.110
-                ip: iippari
-                mask: maski
-                vrrp_ip: verppi
+                1
+                ip: 172.16.1.130
+                mask: 255.255.255.240
+                vrrp_ip: 172.16.1.129
                 vlan_id: 110
           - R3
               interfaces:
                 interface: GigabitEthernet0/0.110
-                ip: iippari
-                mask: maski
-                vrrp_ip: verppi
+                1
+                ip: 172.16.1.131
+                mask: 255.255.255.240
+                vrrp_ip: 172.16.1.129
                 vlan_id: 110
         - S2
-          site_prefix: 172.16.1.144/28
           nodes:
           - R4
               interfaces:
                 interface: GigabitEthernet0/0.110
-                ip: iippari
-                mask: maski
-                vrrp_ip: verppi
+                1
+                ip: 172.16.1.148
+                mask: 255.255.255.240
+                vrrp_ip: 172.16.1.145
                 vlan_id: 110
           - R5
               interfaces:
                 interface: GigabitEthernet0/0.110
-                ip: iippari
-                mask: maski
-                vrrp_ip: verppi
+                1
+                ip: 172.16.1.149
+                mask: 255.255.255.240
+                vrrp_ip: 172.16.1.145
                 vlan_id: 110
         - S3
           - R1
             interfaces:
               interface: GigabitEthernet0/0.110
               ip: 172.16.1.2
-              mask: 255.255.255.0
+              mask: 255.255.255.252
               vlan_id: 110
               route_to_nexthop: 0.0.0.0 0.0.0.0 172.16.1.1
           - FW1
             interfaces:
               interface: Ethernet1/2.110
               ip: 172.16.1.1
-              mask: 255.255.255.0
+              mask: 255.255.255.252
               vlan_id: 110
               route_to_nexthop: 172.16.1.0/24 172.16.1.2
   - B:
       rd: 1:2
       list-of-sites:
         - S1
-          site_prefix: 172.16.2.128/28
           nodes:
           - R2
               interfaces:
                 interface: GigabitEthernet0/0.120
-                ip: iippari
-                mask: maski
-                vrrp_ip: verppi
+                1
+                ip: 172.16.2.130
+                mask: 255.255.255.240
+                vrrp_ip: 172.16.2.129
                 vlan_id: 120
           - R3
               interfaces:
                 interface: GigabitEthernet0/0.120
-                ip: iippari
-                mask: maski
-                vrrp_ip: verppi
+                1
+                ip: 172.16.2.131
+                mask: 255.255.255.240
+                vrrp_ip: 172.16.2.129
                 vlan_id: 120
         - S3
           - R1
             interfaces:
               interface: GigabitEthernet0/0.120
               ip: 172.16.2.2
-              mask: 255.255.255.0
+              mask: 255.255.255.252
               vlan_id: 120
               route_to_nexthop: 0.0.0.0 0.0.0.0 172.16.2.1
           - FW1
             interfaces:
               interface: Ethernet1/2.120
               ip: 172.16.2.1
-              mask: 255.255.255.0
+              mask: 255.255.255.252
               vlan_id: 120
               route_to_nexthop: 172.16.2.0/24 172.16.2.2
