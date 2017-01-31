@@ -22,7 +22,11 @@ l3vpns:
       rd: 1:{{ l3vpn.values()[0].id }}
       list-of-sites:
         {% for site in l3vpn.values()[0].sites %}
+        {% set sitenumber = site | map('regex_findall','.*([0-9])') | map('join') | list %}
+        {% set sitesubnet_id = sitenumber[1] | int %}
         - {{ site }}
+          site_prefix: {{ l3vpn.values()[0].prefix | ipsubnet(28, sitesubnet_id + 7) }}
+          nodes:
           {% for node,nodevalue in nodes | dictsort %}
           {% if nodevalue.site == site %}
           - {{node}}
@@ -50,6 +54,6 @@ l3vpns:
               ip: {{ l3vpn.values()[0].prefix | ipaddr('1') | ipaddr('address') }}
               mask: {{ l3vpn.values()[0].prefix | ipaddr('netmask') }}
               vlan_id: 1{{ l3vpn.values()[0].id }}0
-              route_to_nexthop: vrf-osoitteet {{ l3vpn.values()[0].prefix | ipaddr('2') | ipaddr('address') }}
+              route_to_nexthop: {{ l3vpn.values()[0].prefix }} {{ l3vpn.values()[0].prefix | ipaddr('2') | ipaddr('address') }}
       {% endif %}
 {% endfor %}

@@ -20,6 +20,8 @@ l3vpns:
       rd: 1:1
       list-of-sites:
         - S1
+          site_prefix: 172.16.1.128/28
+          nodes:
           - R2
               interfaces:
                 interface: GigabitEthernet0/0.110
@@ -35,6 +37,8 @@ l3vpns:
                 vrrp_ip: verppi
                 vlan_id: 110
         - S2
+          site_prefix: 172.16.1.144/28
+          nodes:
           - R4
               interfaces:
                 interface: GigabitEthernet0/0.110
@@ -63,11 +67,13 @@ l3vpns:
               ip: 172.16.1.1
               mask: 255.255.255.0
               vlan_id: 110
-              route_to_nexthop: vrf-osoitteet 172.16.1.2
+              route_to_nexthop: 172.16.1.0/24 172.16.1.2
   - B:
       rd: 1:2
       list-of-sites:
         - S1
+          site_prefix: 172.16.2.128/28
+          nodes:
           - R2
               interfaces:
                 interface: GigabitEthernet0/0.120
@@ -96,4 +102,4 @@ l3vpns:
               ip: 172.16.2.1
               mask: 255.255.255.0
               vlan_id: 120
-              route_to_nexthop: vrf-osoitteet 172.16.2.2
+              route_to_nexthop: 172.16.2.0/24 172.16.2.2
