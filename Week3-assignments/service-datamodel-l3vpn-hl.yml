@@ -21,3 +21,4 @@ l3vpns:
       prefix: 172.16.2.0/24
       sites: 
         - S1
+        - S2
