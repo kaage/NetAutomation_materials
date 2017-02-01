@@ -2,10 +2,7 @@
 
 Data Models - goal is to define infrastucture and service data-models and document them.
 
-
-## Overall picture of data models
-
-### List of Data Models
+## Data Models
 
 My network services defined are:
 * MPLS backbone, Switch management and Firewall (Infrastructure Data Model)
@@ -18,6 +15,13 @@ Diagram below is a summary of Data Models, Jinja2 templates and Ansible playbook
 In Infrastructure part I decided to go from Source data (data model) to device configurations in a single step. 
 
 ### Services Data Models
-I decided to have two step process when going from source data to device configurations. There is additional abstraction level.
+In Services part I decided to have two step process when going from source data to device configurations. There is additional abstraction level.
 
+### Overview picture of Data Models
 ![alt text](https://github.com/kaage/NetAutomation_materials/blob/master/Week3-assignments/overview.png "Overview of Data Models")
+
+## Future steps
+
+Here are future steps when developing data models:
+* Jinja2 templates are not ready for Switches nor Firewall
+* There is lots of refactoring needed to make data models clear and easy to use
