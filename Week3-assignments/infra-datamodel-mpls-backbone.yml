@@ -43,18 +43,23 @@ fw_subnet:
 
 nodes:
   R1:
+    id: 1
     lo0_ip: 10.255.255.1
     route_reflector: TRUE
     site: S3
   R2:
+    id: 2
     lo0_ip: 10.255.255.2
     site: S1
   R3:
+    id: 3
     lo0_ip: 10.255.255.3
     site: S1
   R4:
+    id: 4
     lo0_ip: 10.255.255.4
     site: S2
   R5:
+    id: 5
     lo0_ip: 10.255.255.5
     site: S2
