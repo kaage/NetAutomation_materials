@@ -1,0 +1,73 @@
+#jinja2: lstrip_blocks: True
+
+
+{% for l3vpn in l3vpns %}
+ {% set rd = l3vpn.values()[0].rd %}
+ {% set vrfname = l3vpn.keys()[0] %}
+!
+! ------- VRF {{ vrfname }} Configuration ----------------
+!
+vrf definition {{ vrfname }}
+ rd {{ rd }}
+ route-target export {{ rd }}
+ route-target import {{ rd }}
+ !
+ address-family ipv4
+  route-target export {{ rd }}
+  route-target import {{ rd }}
+ exit-address-family
+!
+{% for site in l3vpn.values()[0].list_of_sites %}
+{% for node in site.nodes %}
+{% if node.name == inventory_hostname %}
+{% for interface in node.interfaces %}
+interface {{ interface.interface }}
+ {% if interface.vlan_id is defined %}
+ encapsulation dot1Q {{ interface.vlan_id }}
+ {% endif %}
+ vrf forwarding {{ vrfname }}
+ ip address {{ interface.ip }} {{ interface.mask }}
+ {% if interface.vrrp_ip is defined %}
+ standby {{ interface.vlan_id }} ip {{ interface.vrrp_ip }}
+ {% endif %}
+!
+{% if interface.vrrp_ip is defined %}
+{% set subnet = interface.ip ~ '/' ~ interface.mask %}
+ip dhcp excluded-address vrf A {{ subnet | ipaddr(1) | ipaddr('address')}}
+ip dhcp excluded-address vrf A {{ subnet | ipaddr(2) | ipaddr('address')}}
+ip dhcp excluded-address vrf A {{ subnet | ipaddr(3) | ipaddr('address')}}
+!
+ip dhcp pool vrf{{ vrfname }}-DHCP
+ vrf {{ vrfname }}
+ network {{ subnet | ipaddr('network') }} {{ subnet | ipaddr('netmask') }}
+ default-router {{ subnet | ipaddr(1) | ipaddr('address')}}
+ dns-server 8.8.8.8
+!
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+!
+router bgp 1
+ !
+ address-family ipv4 vrf {{ vrfname }}
+{% if inventory_hostname == 'R1' %}
+  network 0.0.0.0
+  default-information originate
+{% else %}
+  redistribute connected
+{% endif %}
+ exit-address-family
+!
+{% if inventory_hostname == 'R1' %}
+ip route vrf {{ vrfname }} 0.0.0.0 0.0.0.0 172.16.1.1
+{% endif %}
+!
+{% endfor %}
+
+
+
+
+
+
