@@ -129,22 +129,3 @@ l3vpns:
                 - interface: Loopback2
                   ip: 172.16.2.245
                   mask: 255.255.255.255           
-        - name: S3
-          nodes:
-            - name: R1
-              interfaces:
-                - interface: GigabitEthernet0/0.120
-                  ip: 172.16.2.2
-                  mask: 255.255.255.252
-                  vlan_id: 120
-                  route_to_nexthop: 0.0.0.0 0.0.0.0 172.16.2.1
-                - interface: Loopback2
-                  ip: 172.16.2.241
-                  mask: 255.255.255.255
-            - name: FW1
-              interfaces:
-                interface: Ethernet1/2.120
-                ip: 172.16.2.1
-                mask: 255.255.255.252
-                vlan_id: 120
-                route_to_nexthop: 172.16.2.0/24 172.16.2.2

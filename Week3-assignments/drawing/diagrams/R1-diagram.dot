@@ -4,8 +4,22 @@
 //
 //
 
+
 graph {
 		vrfA
+		R2 -- vrfA;
+		R3 -- vrfA;
+		R4 -- vrfA;
+		R5 -- vrfA;
+		R1 -- vrfA;
+		R1 -- "172.16.1.2/30"[label="GigabitEthernet0/0.110"];
+		R1 -- "172.16.1.241/32"[label="Loopback1"];
+		FW1 -- vrfA;
+}
+graph {
 		vrfB
-		b
+		R2 -- vrfB;
+		R3 -- vrfB;
+		R4 -- vrfB;
+		R5 -- vrfB;
 }
