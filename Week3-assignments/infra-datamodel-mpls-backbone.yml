@@ -5,16 +5,16 @@
 #
 ---
 mpls_links:
-  - {left: R1, left_ip: 10.255.14.1, left_port: GigabitEthernet0/3, 
-     right: R4, right_ip: 10.255.14.4, right_port: GigabitEthernet0/3}
   - {left: R2, left_ip: 10.255.12.2, left_port: GigabitEthernet0/1, 
      right: R1, right_ip: 10.255.12.1, right_port: GigabitEthernet0/1}
-  - {left: R3, left_ip: 10.255.23.3, left_port: GigabitEthernet0/2, 
-     right: R2, right_ip: 10.255.23.2, right_port: GigabitEthernet0/2}
   - {left: R3, left_ip: 10.255.35.3, left_port: GigabitEthernet0/1, 
      right: R5, right_ip: 10.255.35.5, right_port: GigabitEthernet0/1}
+  - {left: R3, left_ip: 10.255.23.3, left_port: GigabitEthernet0/2, 
+     right: R2, right_ip: 10.255.23.2, right_port: GigabitEthernet0/2}
   - {left: R5, left_ip: 10.255.45.5, left_port: GigabitEthernet0/2, 
      right: R4, right_ip: 10.255.45.4, right_port: GigabitEthernet0/2}
+  - {left: R1, left_ip: 10.255.14.1, left_port: GigabitEthernet0/3, 
+     right: R4, right_ip: 10.255.14.4, right_port: GigabitEthernet0/3}
 
 non_mpls_subnets:
   - subnet_mask: 255.255.255.0

@@ -1,0 +1,15 @@
+---
+- name: Deploy a configuration snippet on Cisco IOS routers
+  hosts: ios-routers
+  gather_facts: no
+  serial: 1 
+
+  vars:
+  - path_configs: "/vagrant/NetAutomation_materials/Week3-assignments/infra/config"
+
+  tasks:
+  - ios_config:
+      src:      "{{path_configs}}/{{inventory_hostname}}-infrastructure-config.cfg"
+      host:     "{{ansible_host}}"
+      username: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"

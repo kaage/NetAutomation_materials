@@ -13,4 +13,4 @@
 
   - include_vars: "infra-datamodel-mpls-backbone.yml"
 
-  - template: src="infra/infra-config-template-mpls-backbone.j2" dest={{path_configs}}{{inventory_hostname}}-infrastucture-config.cfg
+  - template: src="infra/infra-config-template-mpls-backbone.j2" dest={{path_configs}}{{inventory_hostname}}-infrastructure-config.cfg

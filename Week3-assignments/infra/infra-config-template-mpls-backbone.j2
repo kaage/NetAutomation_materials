@@ -120,7 +120,6 @@ interface {{ mpls_link.right_port }}
 !
 {% endif %}
 {% endfor %}
-!
 router ospf 1
  {% if inventory_hostname != "R1" %}
  passive-interface GigabitEthernet0/0
@@ -135,14 +134,19 @@ router bgp 1
  bgp router-id {{ nodes.get(inventory_hostname).lo0_ip }}
  bgp log-neighbor-changes
  {% for nodename,nodevalue in nodes | dictsort %}
+ {% if not nodes[nodename].route_reflector is defined %}
  neighbor {{ nodes[nodename].lo0_ip }} remote-as 1
  neighbor {{ nodes[nodename].lo0_ip }} update-source Loopback0
+ {% endif %}
  {% endfor %}
  !
  address-family vpnv4
   {% for nodename,nodevalue in nodes | dictsort %}
+  {% if not nodes[nodename].route_reflector is defined %}
   neighbor {{ nodes[nodename].lo0_ip }} activate
   neighbor {{ nodes[nodename].lo0_ip }} send-community both
+  neighbor {{ nodes[nodename].lo0_ip }} route-reflector-client
+  {% endif %}
   {% endfor %}
  exit-address-family
  !
@@ -173,7 +177,6 @@ ip route 0.0.0.0 0.0.0.0 {{ fw_subnet.nodes.FW1.ip }}
 !
 snmp-server community cisco RO
 snmp-server contact admin@lab.local
-snmp-server chassis-id
 !
 !
 !
@@ -199,5 +202,9 @@ line vty 5 15
  transport input ssh
 !
 no scheduler allocate
+!event manager applet CLIaccounting
+!event cli pattern ".*" sync no skip no
+!action 1.0 syslog priority informational msg "$_cli_msg"
+!set 2.0 _exit_status 1
 !
 end
