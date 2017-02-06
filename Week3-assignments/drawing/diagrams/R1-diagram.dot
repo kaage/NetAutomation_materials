@@ -4,22 +4,33 @@
 //
 //
 
-
 graph {
 		vrfA
 		R2 -- vrfA;
+	    [{u'interface': u'GigabitEthernet0/0.110', u'ip': u'172.16.1.130', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.1.129', u'vlan_id': 110}, {u'interface': u'Loopback1', u'ip': u'172.16.1.242', u'mask': u'255.255.255.255'}]
 		R3 -- vrfA;
+	    [{u'interface': u'GigabitEthernet0/0.110', u'ip': u'172.16.1.130', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.1.129', u'vlan_id': 110}, {u'interface': u'Loopback1', u'ip': u'172.16.1.243', u'mask': u'255.255.255.255'}]
 		R4 -- vrfA;
+	    [{u'interface': u'GigabitEthernet0/0.110', u'ip': u'172.16.1.146', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.1.145', u'vlan_id': 110}, {u'interface': u'Loopback1', u'ip': u'172.16.1.244', u'mask': u'255.255.255.255'}]
 		R5 -- vrfA;
+	    [{u'interface': u'GigabitEthernet0/0.110', u'ip': u'172.16.1.146', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.1.145', u'vlan_id': 110}, {u'interface': u'Loopback1', u'ip': u'172.16.1.245', u'mask': u'255.255.255.255'}]
 		R1 -- vrfA;
-		R1 -- "172.16.1.2/30"[label="GigabitEthernet0/0.110"];
-		R1 -- "172.16.1.241/32"[label="Loopback1"];
+	    [{u'interface': u'GigabitEthernet0/0.110', u'ip': u'172.16.1.2', u'mask': u'255.255.255.252', u'vlan_id': 110, u'route_to_nexthop': u'0.0.0.0 0.0.0.0 172.16.1.1'}, {u'interface': u'Loopback1', u'ip': u'172.16.1.241', u'mask': u'255.255.255.255'}]
 		FW1 -- vrfA;
+	    {u'interface': u'Ethernet1/2.110', u'ip': u'172.16.1.1', u'mask': u'255.255.255.252', u'vlan_id': 110, u'route_to_nexthop': u'172.16.1.0/24 172.16.1.2'}
 }
 graph {
 		vrfB
 		R2 -- vrfB;
+	    [{u'interface': u'GigabitEthernet0/0.120', u'ip': u'172.16.2.130', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.2.129', u'vlan_id': 120}, {u'interface': u'Loopback2', u'ip': u'172.16.2.242', u'mask': u'255.255.255.255'}]
 		R3 -- vrfB;
+	    [{u'interface': u'GigabitEthernet0/0.120', u'ip': u'172.16.2.130', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.2.129', u'vlan_id': 120}, {u'interface': u'Loopback2', u'ip': u'172.16.2.243', u'mask': u'255.255.255.255'}]
 		R4 -- vrfB;
+	    [{u'interface': u'GigabitEthernet0/0.120', u'ip': u'172.16.2.146', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.2.145', u'vlan_id': 120}, {u'interface': u'Loopback2', u'ip': u'172.16.2.244', u'mask': u'255.255.255.255'}]
 		R5 -- vrfB;
+	    [{u'interface': u'GigabitEthernet0/0.120', u'ip': u'172.16.2.146', u'mask': u'255.255.255.240', u'vrrp_ip': u'172.16.2.145', u'vlan_id': 120}, {u'interface': u'Loopback2', u'ip': u'172.16.2.245', u'mask': u'255.255.255.255'}]
+		R1 -- vrfB;
+	    [{u'interface': u'GigabitEthernet0/0.120', u'ip': u'172.16.2.2', u'mask': u'255.255.255.252', u'vlan_id': 120, u'route_to_nexthop': u'0.0.0.0 0.0.0.0 172.16.2.1'}, {u'interface': u'Loopback2', u'ip': u'172.16.2.241', u'mask': u'255.255.255.255'}]
+		FW1 -- vrfB;
+	    {u'interface': u'Ethernet1/2.120', u'ip': u'172.16.2.1', u'mask': u'255.255.255.252', u'vlan_id': 120, u'route_to_nexthop': u'172.16.2.0/24 172.16.2.2'}
 }
