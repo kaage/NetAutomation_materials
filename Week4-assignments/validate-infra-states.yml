@@ -12,10 +12,6 @@
       filter: ['bgp_neighbors','lldp_neighbors']
     register: napalm_facts
 
-  - debug:
-      msg: "{{ napalm_facts }}"
-    tags: [print_action]
-
   - name: Check BGP sessions are healthy
     assert:
       that:
@@ -23,6 +19,19 @@
       msg: "{{ item.key }} is down"
     with_dict: "{{ napalm_facts.ansible_facts.bgp_neighbors.global.peers }}"
     tags: [print_action]
+
+  - debug:
+      msg: "{{ napalm_facts.ansible_facts.lldp_neighbors | length }}"
+    tags: [print_action]
+
+# There is only one LLDP neighbor in 'item' at a time, so this won't work.
+#  - name: Check if two LLDP neighbors exists
+#    assert:
+#      that:
+#        - item|length <= 2
+#      msg: "{{ item.key }} less than 2 LLDP neighbors"
+#    with_dict: "{{ napalm_facts.ansible_facts.lldp_neighbors }}"
+#    tags: [print_action]
 
 # We should verify against data models LLDP output is correct:
 #            "lldp_neighbors": {
