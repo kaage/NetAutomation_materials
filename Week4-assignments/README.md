@@ -24,7 +24,7 @@ In this step we are going to deploy already created service configurations.
 
 *deploy-service-configs.yml* does the job. It deploys all VRFs into device.
 
-In the future all sorts of validation needs to be implemented to validate if service has been implemented correclty. 
+In the future all sorts of validation needs to be implemented to validate if service has been implemented correctly. 
 
 ## Task 4 - Incremental Services Deployment
 
