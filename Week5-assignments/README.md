@@ -12,3 +12,27 @@ Logging functionality is controlled by defining directory for debug files in var
 Playbook will place debug outputs to files with timestamps so you can see what happened even playbook has been run for multiple times.
 
 ## Task 2 - Unit Testing
+
+In this task I'm going to validate input data for *High Level L3VPN Service Data Model*.
+
+Test scenarios:
+* 1 Data Model has correct YAML-syntax
+* 2 Data Model has list of *l3vpns* defined
+* 3 Data Model has one or more l3vpns in the list
+* 4 Each l3vpn has either TRUE or FALSE value in the *connection_to_firewall* field
+* 5 Each l3vpn has *unique* real *number* in the *id* field
+* 6 Each l3vpn has *unique* real *ipv4 prefix* in *the* prefix field
+* 7 Each l3vpn has list of *sites* and the list is containing one or more site names
+* 8 Data Model has nothing more defined
+
+Broken data model for each scenario is below:
+* 1 broken_service-datamodel-l3vpn-hl-1.yml
+* 2 broken_service-datamodel-l3vpn-hl-2.yml
+* 3 broken_service-datamodel-l3vpn-hl-3.yml
+* 4 broken_service-datamodel-l3vpn-hl-4.yml
+* 5 broken_service-datamodel-l3vpn-hl-5.yml
+* 6 broken_service-datamodel-l3vpn-hl-6.yml
+* 7 broken_service-datamodel-l3vpn-hl-7.yml
+* 8 broken_service-datamodel-l3vpn-hl-8.yml
+
+*validate-service-yaml-syntax.yml* runs yamllint (syntax checking) against each 8 test Data Models above. Just first one of them has incorrect YAML-syntax and should fail.

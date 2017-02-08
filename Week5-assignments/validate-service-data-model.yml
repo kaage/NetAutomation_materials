@@ -1,0 +1,21 @@
+#
+# Validate correctness High Level Service Data Model of L3VPN Service
+#
+---
+- hosts: localhost
+  name:  Validate Services Data model contents
+  gather_facts: no
+  vars:
+  - services_path: "broken-data-models"
+
+  tasks:
+  - include_vars: "{{services_path}}/broken_service-datamodel-l3vpn-hl-correct.yml"
+
+  - name: Check wether l3vpns is defined in the Data Model
+    assert:
+      that: l3vpns is defined
+      msg: "l3vpns not defined correctly"
+
+  - debug:
+      msg: "{{l3vpns.keys()}}"
+    when: l3vpns is defined

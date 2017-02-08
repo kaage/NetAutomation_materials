@@ -1,0 +1,12 @@
+# --------------------------------------------------------
+# L3VPN service high level data model definition
+# (broken to validate input data validation catches errors)
+# -
+# Data model
+# * Dictionary of L3VPNs
+# * Each L3VPN has
+#   - Connection to Firewall (TRUE or FALSE)
+#   - dictionary of list of MPLS sites
+
+---
+l3vpns:

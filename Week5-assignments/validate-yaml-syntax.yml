@@ -1,0 +1,15 @@
+#
+# Validate correctness of input file(s)
+#
+---
+- hosts: localhost
+  name:  Validate Services Data model with yamllint
+  gather_facts: no
+  vars:
+  - services_path: "broken-data-models"
+
+  tasks:
+  - shell: "yamllint {{item}} -c {{inventory_dir~'/.yamllint'}}"
+    changed_when: False
+    with_fileglob:
+      - "{{services_path}}/*"
