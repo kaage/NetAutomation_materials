@@ -1,0 +1,61 @@
+---
+- name: Get facts
+  hosts: ios-routers
+  connection: local
+  gather_facts: no
+  vars:
+
+  tasks:
+  - name: get facts from device
+    napalm_get_facts:
+      provider: "{{ios_provider}}"
+      filter: ['bgp_neighbors','lldp_neighbors']
+    register: napalm_facts
+
+  - name: Check BGP sessions are healthy
+    assert:
+      that:
+        - item.value.is_up
+      msg: "{{ item.key }} is down"
+    with_dict: "{{ napalm_facts.ansible_facts.bgp_neighbors.global.peers }}"
+    tags: [print_action]
+
+  - debug:
+      msg: "{{ napalm_facts.ansible_facts.lldp_neighbors | length }}"
+    tags: [print_action]
+
+# There is only one LLDP neighbor in 'item' at a time, so this won't work.
+#  - name: Check if two LLDP neighbors exists
+#    assert:
+#      that:
+#        - item|length <= 2
+#      msg: "{{ item.key }} less than 2 LLDP neighbors"
+#    with_dict: "{{ napalm_facts.ansible_facts.lldp_neighbors }}"
+#    tags: [print_action]
+
+# We should verify against data models LLDP output is correct:
+#            "lldp_neighbors": {
+#                "GigabitEthernet0/1": [
+#                    {
+#                        "hostname": "R2.********.com",
+#                        "port": "Gi0/1"
+#                    }
+#                ],
+#                "GigabitEthernet0/3": [
+#                    {
+#                        "hostname": "R4.********.com",
+#                        "port": "Gi0/3"
+#                    }
+#                ]
+#            }
+
+# We should verify against data models OSPF output is correct:
+
+# NAPALM doesn't support VPNv4 AFI so checking received prefixes doesn't work in this case
+#  - name: Check BGP sessions are receiving prefixes
+#    assert:
+#      that:
+#        - item.value.address_family.ipv4.received_prefixes > 0
+#      msg: "{{ item.key }} is not receiving any prefixes"
+#    with_dict: "{{ napalm_facts.ansible_facts.bgp_neighbors.global.peers }}"
+#    tags: [print_action]
