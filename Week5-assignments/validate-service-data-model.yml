@@ -9,13 +9,40 @@
   - services_path: "broken-data-models"
 
   tasks:
-  - include_vars: "{{services_path}}/broken_service-datamodel-l3vpn-hl-correct.yml"
+  - include_vars: "{{services_path}}/broken_service-datamodel-l3vpn-hl-5.yml"
 
   - name: Check wether l3vpns is defined in the Data Model
     assert:
       that: l3vpns is defined
       msg: "l3vpns not defined correctly"
 
-  - debug:
-      msg: "{{l3vpns.keys()}}"
-    when: l3vpns is defined
+  - name: Check if l3vpns is list
+    assert:
+      that: l3vpns is iterable
+      msg: "l3vpns is not list"
+
+  - name: Check if there is more than zero l3vpns defined
+    assert:
+      that: l3vpns|length >= 1
+      msg: "l3vpns has no l3vpns"
+
+  - name: Check wether l3vpns has connection_to_firewall set to TRUE or FALSE
+    assert:
+      that: (item.values()[0].connection_to_firewall == true) or (item.values()[0].connection_to_firewall == false)
+      msg: "l3vpns has no connection_to_firewall defined or value is not TRUE or FALSE" 
+    with_items: "{{l3vpns}}"
+
+  - name: Check wether l3vpns has real number in id field
+    assert:
+      that: item.values()[0].id is number
+      msg: "l3vpns id is not unique number" 
+    with_items: "{{l3vpns}}"
+
+# ...and wether it is unique (maybe intersect union etc could help)
+#  - debug:
+#      msg: "Iteemi: {{l3vpns[1]}}"
+#    with_items: "{{l3vpns}}"
+
+#  - assert:
+#      that: l3vpns.values()|map(attribute='id')|list|unique|length==l3vpns.keys()|length
+#      msg: "Non-unique customer VLAN found, aborting"
