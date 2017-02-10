@@ -1,4 +1,3 @@
-#
 # Validate correctness High Level Service Data Model of L3VPN Service
 #
 ---
@@ -9,40 +8,69 @@
   - services_path: "broken-data-models"
 
   tasks:
-  - include_vars: "{{services_path}}/broken_service-datamodel-l3vpn-hl-5.yml"
+  - include_vars: "{{services_path}}/broken_service-datamodel-l3vpn-hl-7.yml"
 
-  - name: Check wether l3vpns is defined in the Data Model
+  - name: 2 - Check wether l3vpns is defined in the Data Model
     assert:
       that: l3vpns is defined
       msg: "l3vpns not defined correctly"
 
-  - name: Check if l3vpns is list
+  - name: 3 - Check if l3vpns is list
     assert:
       that: l3vpns is iterable
       msg: "l3vpns is not list"
 
-  - name: Check if there is more than zero l3vpns defined
+  - name: 3 - Check if there is more than zero l3vpns defined
     assert:
       that: l3vpns|length >= 1
       msg: "l3vpns has no l3vpns"
 
-  - name: Check wether l3vpns has connection_to_firewall set to TRUE or FALSE
+  - name: 4 - Check wether l3vpns has connection_to_firewall set to TRUE or FALSE
     assert:
       that: (item.values()[0].connection_to_firewall == true) or (item.values()[0].connection_to_firewall == false)
       msg: "l3vpns has no connection_to_firewall defined or value is not TRUE or FALSE" 
     with_items: "{{l3vpns}}"
 
-  - name: Check wether l3vpns has real number in id field
+  - name: 5 - Check wether l3vpns has real number in id field
     assert:
       that: item.values()[0].id is number
-      msg: "l3vpns id is not unique number" 
+      msg: "l3vpns id is not real number" 
     with_items: "{{l3vpns}}"
 
-# ...and wether it is unique (maybe intersect union etc could help)
+#  - name: 5 - Check if id is unique
+
 #  - debug:
-#      msg: "Iteemi: {{l3vpns[1]}}"
+#      msg: "{{l3vpns|map(attribute='id')|list}}"
+
+#  - debug:
+#      msg: "Iteemi: {{item.values()|map(attribute='id')|list}}"
 #    with_items: "{{l3vpns}}"
 
 #  - assert:
 #      that: l3vpns.values()|map(attribute='id')|list|unique|length==l3vpns.keys()|length
 #      msg: "Non-unique customer VLAN found, aborting"
+
+  - name: 6 - Check if prefix is real IPv4 prefix
+    assert:
+      that: item.values()[0].prefix|ipv4 != false
+      msg: "Prefix is not valid ipv4 prefix"
+    with_items: "{{l3vpns}}"
+
+#  - name: 6 - Check if prefix is unique
+# Once unique ID testing has been resolved this goes same way
+
+  - name: 7 - Check if sites is list
+    assert:
+      that: item.values()[0].sites is iterable
+      msg: "Sites is not list"
+    with_items: "{{l3vpns}}"
+
+  - name: 7 - Check if there is more than zero sites defined
+    assert:
+      that: item.values()[0].sites|length >= 1
+      msg: "sites has no sites defined"
+    with_items: "{{l3vpns}}"
+
+#  - name: 8 - Check that data model has nothing more defined
+#    I have no idea how to write test like this
+
