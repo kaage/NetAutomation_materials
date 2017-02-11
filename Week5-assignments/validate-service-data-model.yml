@@ -8,7 +8,7 @@
   - services_path: "broken-data-models"
 
   tasks:
-  - include_vars: "{{services_path}}/broken_service-datamodel-l3vpn-hl-7.yml"
+  - include_vars: "{{services_path}}/broken_service-datamodel-l3vpn-hl-correct.yml"
 
   - name: 2 - Check wether l3vpns is defined in the Data Model
     assert:
@@ -25,6 +25,7 @@
       that: l3vpns|length >= 1
       msg: "l3vpns has no l3vpns"
 
+
   - name: 4 - Check wether l3vpns has connection_to_firewall set to TRUE or FALSE
     assert:
       that: (item.values()[0].connection_to_firewall == true) or (item.values()[0].connection_to_firewall == false)
@@ -35,12 +36,12 @@
     assert:
       that: item.values()[0].id is number
       msg: "l3vpns id is not real number" 
-    with_items: "{{l3vpns}}"
+    with_items: "{{l3vpns}}" #}
 
 #  - name: 5 - Check if id is unique
 
-#  - debug:
-#      msg: "{{l3vpns|map(attribute='id')|list}}"
+  - debug:
+      msg: "{{l3vpns.values()|map(attribute='id')|list}}"
 
 #  - debug:
 #      msg: "Iteemi: {{item.values()|map(attribute='id')|list}}"

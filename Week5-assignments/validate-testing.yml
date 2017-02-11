@@ -1,0 +1,17 @@
+# Validate correctness High Level Service Data Model of L3VPN Service
+#
+---
+- hosts: localhost
+  name:  Validate Services Data model contents
+  gather_facts: no
+
+  tasks:
+  - include_vars:
+     file: "testing/correct-data-model.yml"
+     name: l3vpns
+
+  
+
+  - debug:
+      msg: "{{l3vpns.values()|map(attribute='id')|list|unique|length}} and {{l3vpns|length}}"
+
