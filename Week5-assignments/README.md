@@ -17,7 +17,7 @@ In this task I'm going to validate input data for *High Level L3VPN Service Data
 
 Test scenarios:
 * 1 Data Model has correct YAML-syntax
-* 2 Data Model has list of *l3vpns* defined
+* 2 Data Model has dictionary of *l3vpns* defined
 * 3 Data Model has one or more l3vpns in the list
 * 4 Each l3vpn has either TRUE or FALSE value in the *connection_to_firewall* field
 * 5 Each l3vpn has *unique* real *number* in the *id* field
