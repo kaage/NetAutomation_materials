@@ -39,3 +39,6 @@ Broken data model for each scenario is below:
 
 ## Task 3 - Automate Unit Testing
 *run-data-model-validation.sh* bash script runs broken data-models agains validation playbook and validates also real data-model agains it.
+
+## Task 4 - Validate Input Data
+As I selected Input data validation into my main validation in tasks 2-4 it is already done. In the future I need to add validations for device configurations etc..
