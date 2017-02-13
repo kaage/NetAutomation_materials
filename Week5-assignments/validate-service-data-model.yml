@@ -8,9 +8,13 @@
   - services_path: "broken-data-models"
 
   tasks:
+
   - include_vars: 
-      file: "{{services_path}}/broken_service-datamodel-l3vpn-hl-7.yml"
+      file: "{{svcs}}"
       name: l3vpns
+
+  - debug:
+      msg: "{{l3vpns}}"
 
   - name: 2 - Check wether l3vpns is defined in the Data Model
     assert:

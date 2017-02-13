@@ -13,7 +13,7 @@ A:
   connection_to_firewall: TRUE
   id: 1
   prefix: 172.16.1.0/24
-
+  
 B:
   connection_to_firewall: TRUE
   id: 2

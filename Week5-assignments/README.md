@@ -36,3 +36,6 @@ Broken data model for each scenario is below:
 * 8 broken_service-datamodel-l3vpn-hl-8.yml
 
 *validate-service-yaml-syntax.yml* runs yamllint (syntax checking) against each 8 test Data Models above. Just first one of them has incorrect YAML-syntax and should fail.
+
+## Task 3 - Automate Unit Testing
+*run-data-model-validation.sh* bash script runs broken data-models agains validation playbook and validates also real data-model agains it.
