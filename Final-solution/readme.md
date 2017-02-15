@@ -3,7 +3,7 @@
 Here I'm building Network Automation Solution for L3VPN service provisioning.
 
 
-## Lab Environment
+## 1 - Lab Environment
 After couple of versions and troubles I ended up to following virtual lab environment:
 
 See network diagram: [Automation-concept.pdf](https://github.com/kaage/NetAutomation_materials/blob/master/Final-solution/Automation-concept.pdf)
@@ -20,7 +20,7 @@ See network diagram: [Automation-concept.pdf](https://github.com/kaage/NetAutoma
     * SSH access from Vagrant VM to all devices works
     * Sample L3VPN: vrf A is configured for reference
 
-## Data Models
+## 2 - Data Models
 
 My network services defined are:
 * MPLS backbone, Switch management and Firewall (Infrastructure Data Model)
@@ -39,7 +39,7 @@ In Services part I decided to have two step process when going from source data 
 ![alt text](https://github.com/kaage/NetAutomation_materials/blob/master/Final-solution/overview.png "Overview of Data Models")
 
 
-## Pre-deployment validations and deploying configurations
+## 3 - Pre-deployment validations and deploying configurations
 
 ### Validate Infrastructure Configurations
 
@@ -60,7 +60,7 @@ In this step we are going to deploy already created service configurations.
 In the future all sorts of validation needs to be implemented to validate if service has been implemented correctly. 
 
 
-## Logging and Testing
+## 4 - Logging and Testing
 
 ### Logging
 
@@ -101,7 +101,7 @@ Broken data model for each scenario is below:
 *run-data-model-validation.sh* bash script runs broken data-models agains validation playbook and validates also real data-model agains it.
 
 
-## Future Development
+## 5 - Future Development
 
 Here are future steps when developing data models:
 * Jinja2 templates are not ready for Switches nor Firewall
