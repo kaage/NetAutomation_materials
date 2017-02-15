@@ -1,0 +1,27 @@
+graph {
+		{ rank=same; "172.16.1.129"; "172.16.1.242/32"; "172.16.1.243/32"; R5 }
+		{ rank=same; R2; R3; R4; R5 }
+		{ rank=max; R1 }
+		{ rank=sink; FW1 }		
+		FW1 -- "172.16.1.2/30";		
+		vrfA[style="filled",fillcolor="blue",fontcolor="white",shape="box"]
+		R2 -- vrfA;
+		R2 -- "172.16.1.129"[label="GigabitEthernet0/0.110\n172.16.1.130"];
+		"172.16.1.129" -- "172.16.1.128/28";
+		R2 -- "172.16.1.242/32"[label="Loopback1"];
+		R3 -- vrfA;
+		R3 -- "172.16.1.129"[label="GigabitEthernet0/0.110\n172.16.1.131"];
+		"172.16.1.129" -- "172.16.1.128/28";
+		R3 -- "172.16.1.243/32"[label="Loopback1"];
+		R4 -- vrfA;
+		R4 -- "172.16.1.145"[label="GigabitEthernet0/0.110\n172.16.1.146"];
+		"172.16.1.145" -- "172.16.1.144/28";
+		R4 -- "172.16.1.244/32"[label="Loopback1"];
+		R5 -- vrfA;
+		R5 -- "172.16.1.145"[label="GigabitEthernet0/0.110\n172.16.1.147"];
+		"172.16.1.145" -- "172.16.1.144/28";
+		R5 -- "172.16.1.245/32"[label="Loopback1"];
+		R1 -- vrfA;
+		R1 -- "172.16.1.2/30"[label="GigabitEthernet0/0.110"];
+		R1 -- "172.16.1.241/32"[label="Loopback1"];
+}
