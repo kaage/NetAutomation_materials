@@ -30,17 +30,17 @@ l3vpns:
                   vlan_id: 110
                 - interface: Loopback1
                   ip: 172.16.1.242
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
             - name: R3
               interfaces:
                 - interface: GigabitEthernet0/0.110
-                  ip: 172.16.1.130
+                  ip: 172.16.1.131
                   mask: 255.255.255.240
                   vrrp_ip: 172.16.1.129
                   vlan_id: 110
                 - interface: Loopback1
                   ip: 172.16.1.243
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
         - name: S2
           nodes:
             - name: R4
@@ -52,17 +52,17 @@ l3vpns:
                   vlan_id: 110
                 - interface: Loopback1
                   ip: 172.16.1.244
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
             - name: R5
               interfaces:
                 - interface: GigabitEthernet0/0.110
-                  ip: 172.16.1.146
+                  ip: 172.16.1.147
                   mask: 255.255.255.240
                   vrrp_ip: 172.16.1.145
                   vlan_id: 110
                 - interface: Loopback1
                   ip: 172.16.1.245
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
         - name: S3
           nodes:
             - name: R1
@@ -96,17 +96,17 @@ l3vpns:
                   vlan_id: 130
                 - interface: Loopback3
                   ip: 172.16.3.242
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
             - name: R3
               interfaces:
                 - interface: GigabitEthernet0/0.130
-                  ip: 172.16.3.130
+                  ip: 172.16.3.131
                   mask: 255.255.255.240
                   vrrp_ip: 172.16.3.129
                   vlan_id: 130
                 - interface: Loopback3
                   ip: 172.16.3.243
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
         - name: S2
           nodes:
             - name: R4
@@ -118,17 +118,17 @@ l3vpns:
                   vlan_id: 130
                 - interface: Loopback3
                   ip: 172.16.3.244
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
             - name: R5
               interfaces:
                 - interface: GigabitEthernet0/0.130
-                  ip: 172.16.3.146
+                  ip: 172.16.3.147
                   mask: 255.255.255.240
                   vrrp_ip: 172.16.3.145
                   vlan_id: 130
                 - interface: Loopback3
                   ip: 172.16.3.245
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
         - name: S3
           nodes:
             - name: R1
@@ -162,17 +162,17 @@ l3vpns:
                   vlan_id: 120
                 - interface: Loopback2
                   ip: 172.16.2.242
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
             - name: R3
               interfaces:
                 - interface: GigabitEthernet0/0.120
-                  ip: 172.16.2.130
+                  ip: 172.16.2.131
                   mask: 255.255.255.240
                   vrrp_ip: 172.16.2.129
                   vlan_id: 120
                 - interface: Loopback2
                   ip: 172.16.2.243
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
         - name: S2
           nodes:
             - name: R4
@@ -184,17 +184,17 @@ l3vpns:
                   vlan_id: 120
                 - interface: Loopback2
                   ip: 172.16.2.244
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
             - name: R5
               interfaces:
                 - interface: GigabitEthernet0/0.120
-                  ip: 172.16.2.146
+                  ip: 172.16.2.147
                   mask: 255.255.255.240
                   vrrp_ip: 172.16.2.145
                   vlan_id: 120
                 - interface: Loopback2
                   ip: 172.16.2.245
-                  mask: 255.255.255.255           
+                  mask: 255.255.255.255
         - name: S3
           nodes:
             - name: R1

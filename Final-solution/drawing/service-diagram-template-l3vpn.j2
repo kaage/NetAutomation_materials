@@ -5,24 +5,28 @@
 //
 //
 
-{# Loop for l3vpns #}
-{% for l3vpn in l3vpns %}
+
 graph {
-{% set vrfname = l3vpn.keys()[0] %}
-		vrf{{ vrfname }}
+	splines = ortho
+	{% set vrfname = item.keys()[0] %}
+		vrf{{ vrfname }}[style="filled",fillcolor="blue",fontcolor="white",shape="box"]
 		{# Loop for sites in l3vpn #}
-		{% for site in l3vpn.values()[0].list_of_sites %}
+		{% for site in item.values()[0].list_of_sites %}
 		{# Loop for nodes in sites #}
 		{% for node in site.nodes %}
 		{{ node.name }} -- vrf{{ vrfname }};
-	    {{ node.interfaces }}
-		{# Loop for interface in nodes #}
-		{#{% for ifkeys,ifvalues in node.interfaces %}
-		{{ ifvalues.interface }}
-		{#{% set subnet = interface.ip ~ '/' ~ interface.mask %}
-		{{ node.name }} -- "{{ subnet | ipaddr() }}"[label="{{ interface.interface }}"];#}
-		{#{% endfor %} #}
+	   	{# Loop for interface in nodes #}
+		{% for intf in node.interfaces %}
+		{% if intf.interface is defined %}
+		{% set subnet = intf.ip ~ '/' ~ intf.mask %}
+		{% if intf.vrrp_ip is defined %}
+		{{ node.name }} -- "{{ intf.vrrp_ip }}"[label="{{ intf.interface }}\n{{ intf.ip }}"];
+		"{{ intf.vrrp_ip }}" -- "{{ subnet | ipaddr('0') }}";
+		{% else %}
+		{{ node.name }} -- "{{ subnet | ipaddr() }}"[label="{{ intf.interface }}"];
+		{% endif %}
+		{% endif %}
+		{% endfor %}
 		{% endfor %}
 		{% endfor %}
 }
-{% endfor %}

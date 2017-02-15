@@ -13,8 +13,15 @@
   - include_vars: "l3vpn/service-datamodel-l3vpn-ll.yml"
     run_once: true
 
-  - template: src="drawing/service-diagram-template-l3vpn.j2" dest={{path_configs}}/{{inventory_hostname}}-diagram.dot
+  - template: src="drawing/service-diagram-template-l3vpn.j2" dest={{path_configs}}/l3vpn-{{item.keys()[0]}}-diagram.dot
     run_once: true
+    with_items: "{{l3vpns}}"
 
-  - command: dot -T png {{path_configs}}/{{inventory_hostname}}-diagram.dot -o {{path_configs}}/{{inventory_hostname}}-diagram.png
+  - command: dot -T png {{path_configs}}/l3vpn-{{item.keys()[0]}}-diagram.dot -o {{path_configs}}/l3vpn-{{item.keys()[0]}}-diagram.png
     run_once: true
+    with_items: "{{l3vpns}}"
+
+#  - debug:
+#      msg: "dest={{path_configs}}/l3vpn-{{item.keys()[0]}}-diagram.dot"
+#    run_once: true
+#    with_items: "{{l3vpns}}"
