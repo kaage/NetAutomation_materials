@@ -1,0 +1,16 @@
+---
+- name:  Reads Low Level Service data-model .YML file and corresponding Jinja2 template and generates device specific configuration files
+  hosts: ios-routers
+  gather_facts: no
+
+  vars:
+  - path_configs: "l3vpn/config"
+
+  tasks:
+  - name: Create directory for results
+    file: path={{path_configs}} state=directory
+    run_once: true
+
+  - include_vars: "l3vpn/service-datamodel-l3vpn-ll.yml"
+
+  - template: src="l3vpn/service-config-template-l3vpn.j2" dest={{path_configs}}/{{inventory_hostname}}-service-config.cfg

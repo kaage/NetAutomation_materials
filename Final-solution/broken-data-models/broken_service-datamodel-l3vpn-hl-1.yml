@@ -1,0 +1,34 @@
+# --------------------------------------------------------
+# L3VPN service high level data model definition
+# (broken to validate input data validation catches errors)
+# -
+# Data model
+# * Dictionary of L3VPNs
+# * Each L3VPN has
+#   - Connection to Firewall (TRUE or FALSE)
+#   - dictionary of list of MPLS sites
+
+---
+A:
+  connection_to_firewall: TRUE
+  id: 1
+prefix: 172.16.1.0/24
+  sites:
+  - S1
+  - S2
+
+B:
+  connection_to_firewall: TRUE
+  id: 2
+  prefix: 172.16.2.0/24
+  sites:
+  - S1
+  - S2
+
+C:
+  connection_to_firewall: TRUE
+  id: 3
+  prefix: 172.16.3.0/24
+  sites:
+  - S1
+  - S2

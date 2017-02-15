@@ -1,0 +1,211 @@
+#jinja2: lstrip_blocks: True
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname {{ inventory_hostname }}
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+enable secret 5 $1$xJAd$lX0SxEucIalNmkv.9nofq/
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+aaa authorization exec default if-authenticated
+!
+!
+!
+!
+!
+aaa session-id common
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name cisco.com
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+username cisco privilege 15 password 0 cisco
+!
+redundancy
+!
+lldp run
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address {{ nodes.get(inventory_hostname).lo0_ip }} 255.255.255.255
+!
+{% if inventory_hostname != "R1" %}
+{% for subnet in non_mpls_subnets %}
+{% for node,nodevalue in subnet.nodes | dictsort %}
+{% if node == inventory_hostname %}
+interface {{ nodevalue.int }}
+ ip address {{ nodevalue.ip }} {{ subnet.subnet_mask }}
+ standby 1 ip {{ subnet.vrrp_ip }}
+ duplex auto
+ speed auto
+ media-type rj45
+!
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endif %}
+{% if fw_subnet.nodes.get(inventory_hostname) %}
+interface {{ fw_subnet.nodes.get(inventory_hostname).int }}
+ ip address {{ fw_subnet.nodes.get(inventory_hostname).ip }} {{ fw_subnet.subnet_mask }}
+ duplex auto
+ speed auto
+ media-type rj45
+!
+{% endif %}
+{% for mpls_link in mpls_links %}
+{% if mpls_link.left == inventory_hostname %}
+interface {{ mpls_link.left_port }}
+ ip address {{ mpls_link.left_ip }} 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+ mpls ip
+!
+{% endif %}
+{% if mpls_link.right == inventory_hostname %}
+interface {{ mpls_link.right_port }}
+ ip address {{ mpls_link.right_ip }} 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+ mpls ip
+!
+{% endif %}
+{% endfor %}
+router ospf 1
+ {% if inventory_hostname != "R1" %}
+ passive-interface GigabitEthernet0/0
+ {% endif %}
+ network 0.0.0.0 255.255.255.255 area 0
+ {% if inventory_hostname == "R1" %}
+ default-information originate always
+ {% endif %}
+!
+{% if nodes.get(inventory_hostname).route_reflector is defined %}
+router bgp 1
+ bgp router-id {{ nodes.get(inventory_hostname).lo0_ip }}
+ bgp log-neighbor-changes
+ {% for nodename,nodevalue in nodes | dictsort %}
+ {% if not nodes[nodename].route_reflector is defined %}
+ neighbor {{ nodes[nodename].lo0_ip }} remote-as 1
+ neighbor {{ nodes[nodename].lo0_ip }} update-source Loopback0
+ {% endif %}
+ {% endfor %}
+ !
+ address-family vpnv4
+  {% for nodename,nodevalue in nodes | dictsort %}
+  {% if not nodes[nodename].route_reflector is defined %}
+  neighbor {{ nodes[nodename].lo0_ip }} activate
+  neighbor {{ nodes[nodename].lo0_ip }} send-community both
+  neighbor {{ nodes[nodename].lo0_ip }} route-reflector-client
+  {% endif %}
+  {% endfor %}
+ exit-address-family
+ !
+{% else %}
+router bgp 1
+ bgp router-id {{ nodes.get(inventory_hostname).lo0_ip }}
+ bgp log-neighbor-changes
+ neighbor 10.255.255.1 remote-as 1
+ neighbor 10.255.255.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 10.255.255.1 activate
+  neighbor 10.255.255.1 send-community both
+ exit-address-family
+ !
+!
+{% endif %}
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+{% if inventory_hostname == "R1" %}
+ip route 0.0.0.0 0.0.0.0 {{ fw_subnet.nodes.FW1.ip }}
+{% endif %}
+!
+!
+snmp-server community cisco RO
+snmp-server contact admin@lab.local
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ privilege level 15
+ transport input ssh
+line vty 5 15
+ privilege level 15
+ transport input ssh
+!
+no scheduler allocate
+!event manager applet CLIaccounting
+!event cli pattern ".*" sync no skip no
+!action 1.0 syslog priority informational msg "$_cli_msg"
+!set 2.0 _exit_status 1
+!
+end

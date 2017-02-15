@@ -1,0 +1,69 @@
+#jinja2: lstrip_blocks: True
+
+#
+# L3VPN service Low Level data model definition automatically generated from High Level Service - and infrastructure data models
+#
+# Data model
+# Common parameters:
+# * vrf name
+# * rd and rt
+#
+# List of VRFs Containing
+# * List of PE devices containing PE-specific parameters:
+#   * PE name
+#   * interfaces inside VRF
+#     * subnet information
+#     * static routes
+
+---
+l3vpns:
+{% for l3vpn in l3vpns %}
+  - {{ l3vpn.keys()[0] }}:
+      rd: '1:{{ l3vpn.values()[0].id }}'
+      list_of_sites:
+        {% for site in l3vpn.values()[0].sites %}
+        {% set sitenumber = site | map('regex_findall','.*([0-9])') | map('join') | list %}
+        {% set sitesubnet_id = sitenumber[1] | int %}
+        - name: {{ site }}
+           {% set site_prefix = l3vpn.values()[0].prefix | ipsubnet(28, sitesubnet_id + 7) %}
+          nodes:
+             {% set count = 0 %}
+            {% for node,nodevalue in nodes | dictsort %}
+            {% if nodevalue.site == site %}
+             {% set count = count + 1 %}
+            - name: {{node}}
+              interfaces:
+                - interface: GigabitEthernet0/0.1{{ l3vpn.values()[0].id }}0
+                  ip: {{ site_prefix | ipaddr(count+1) | ipaddr('address') }}
+                  mask: {{ site_prefix | ipaddr('netmask') }}
+                  vrrp_ip: {{ site_prefix | ipaddr('1') | ipaddr('address') }}
+                  vlan_id: 1{{ l3vpn.values()[0].id }}0
+                - interface: Loopback{{ l3vpn.values()[0].id }}
+                  ip: {{ l3vpn.values()[0].prefix | ipsubnet(32, 240 + nodevalue.id) | ipaddr('address') }}
+                  mask: {{ l3vpn.values()[0].prefix | ipsubnet(32, 240 + nodevalue.id) | ipaddr('netmask') }}           
+            {% endif %}
+            {% endfor %}
+        {% endfor %}
+      {% if l3vpn.values()[0].connection_to_firewall == true %}
+        {% set sitesubnet_id = 3 %}
+        - name: S3
+          nodes:
+            - name: R1
+              interfaces:
+                - interface: GigabitEthernet0/0.1{{ l3vpn.values()[0].id }}0
+                  ip: {{ l3vpn.values()[0].prefix | ipsubnet(30, 0) | ipaddr('2') | ipaddr('address') }}
+                  mask: {{ l3vpn.values()[0].prefix | ipsubnet(30, 0) | ipaddr('netmask') }}
+                  vlan_id: 1{{ l3vpn.values()[0].id }}0
+                  route_to_nexthop: 0.0.0.0 0.0.0.0 {{ l3vpn.values()[0].prefix | ipsubnet(30, 0) | ipaddr('1') | ipaddr('address') }}
+                - interface: Loopback{{ l3vpn.values()[0].id }}
+                  ip: {{ l3vpn.values()[0].prefix | ipsubnet(32, 240 + 1) | ipaddr('address') }}
+                  mask: {{ l3vpn.values()[0].prefix | ipsubnet(32, 240 + 1) | ipaddr('netmask') }}
+            - name: FW1
+              interfaces:
+                interface: Ethernet1/2.1{{ l3vpn.values()[0].id }}0
+                ip: {{ l3vpn.values()[0].prefix | ipsubnet(30, 0) | ipaddr('1') | ipaddr('address') }}
+                mask: {{ l3vpn.values()[0].prefix | ipsubnet(30, 0) | ipaddr('netmask') }}
+                vlan_id: 1{{ l3vpn.values()[0].id }}0
+                route_to_nexthop: {{ l3vpn.values()[0].prefix }} {{ l3vpn.values()[0].prefix | ipsubnet(30, 0) | ipaddr('2') | ipaddr('address') }}
+      {% endif %}
+{% endfor %}

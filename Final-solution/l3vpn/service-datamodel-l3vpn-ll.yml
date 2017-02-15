@@ -1,0 +1,150 @@
+
+#
+# L3VPN service Low Level data model definition automatically generated from High Level Service - and infrastructure data models
+#
+# Data model
+# Common parameters:
+# * vrf name
+# * rd and rt
+#
+# List of VRFs Containing
+# * List of PE devices containing PE-specific parameters:
+#   * PE name
+#   * interfaces inside VRF
+#     * subnet information
+#     * static routes
+
+---
+l3vpns:
+  - A:
+      rd: '1:1'
+      list_of_sites:
+        - name: S1
+          nodes:
+            - name: R2
+              interfaces:
+                - interface: GigabitEthernet0/0.110
+                  ip: 172.16.1.130
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.1.129
+                  vlan_id: 110
+                - interface: Loopback1
+                  ip: 172.16.1.242
+                  mask: 255.255.255.255           
+            - name: R3
+              interfaces:
+                - interface: GigabitEthernet0/0.110
+                  ip: 172.16.1.130
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.1.129
+                  vlan_id: 110
+                - interface: Loopback1
+                  ip: 172.16.1.243
+                  mask: 255.255.255.255           
+        - name: S2
+          nodes:
+            - name: R4
+              interfaces:
+                - interface: GigabitEthernet0/0.110
+                  ip: 172.16.1.146
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.1.145
+                  vlan_id: 110
+                - interface: Loopback1
+                  ip: 172.16.1.244
+                  mask: 255.255.255.255           
+            - name: R5
+              interfaces:
+                - interface: GigabitEthernet0/0.110
+                  ip: 172.16.1.146
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.1.145
+                  vlan_id: 110
+                - interface: Loopback1
+                  ip: 172.16.1.245
+                  mask: 255.255.255.255           
+        - name: S3
+          nodes:
+            - name: R1
+              interfaces:
+                - interface: GigabitEthernet0/0.110
+                  ip: 172.16.1.2
+                  mask: 255.255.255.252
+                  vlan_id: 110
+                  route_to_nexthop: 0.0.0.0 0.0.0.0 172.16.1.1
+                - interface: Loopback1
+                  ip: 172.16.1.241
+                  mask: 255.255.255.255
+            - name: FW1
+              interfaces:
+                interface: Ethernet1/2.110
+                ip: 172.16.1.1
+                mask: 255.255.255.252
+                vlan_id: 110
+                route_to_nexthop: 172.16.1.0/24 172.16.1.2
+  - B:
+      rd: '1:2'
+      list_of_sites:
+        - name: S1
+          nodes:
+            - name: R2
+              interfaces:
+                - interface: GigabitEthernet0/0.120
+                  ip: 172.16.2.130
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.2.129
+                  vlan_id: 120
+                - interface: Loopback2
+                  ip: 172.16.2.242
+                  mask: 255.255.255.255           
+            - name: R3
+              interfaces:
+                - interface: GigabitEthernet0/0.120
+                  ip: 172.16.2.130
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.2.129
+                  vlan_id: 120
+                - interface: Loopback2
+                  ip: 172.16.2.243
+                  mask: 255.255.255.255           
+        - name: S2
+          nodes:
+            - name: R4
+              interfaces:
+                - interface: GigabitEthernet0/0.120
+                  ip: 172.16.2.146
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.2.145
+                  vlan_id: 120
+                - interface: Loopback2
+                  ip: 172.16.2.244
+                  mask: 255.255.255.255           
+            - name: R5
+              interfaces:
+                - interface: GigabitEthernet0/0.120
+                  ip: 172.16.2.146
+                  mask: 255.255.255.240
+                  vrrp_ip: 172.16.2.145
+                  vlan_id: 120
+                - interface: Loopback2
+                  ip: 172.16.2.245
+                  mask: 255.255.255.255           
+        - name: S3
+          nodes:
+            - name: R1
+              interfaces:
+                - interface: GigabitEthernet0/0.120
+                  ip: 172.16.2.2
+                  mask: 255.255.255.252
+                  vlan_id: 120
+                  route_to_nexthop: 0.0.0.0 0.0.0.0 172.16.2.1
+                - interface: Loopback2
+                  ip: 172.16.2.241
+                  mask: 255.255.255.255
+            - name: FW1
+              interfaces:
+                interface: Ethernet1/2.120
+                ip: 172.16.2.1
+                mask: 255.255.255.252
+                vlan_id: 120
+                route_to_nexthop: 172.16.2.0/24 172.16.2.2
