@@ -1,0 +1,28 @@
+---
+- name: Deploy a configuration snippet on Cisco IOS routers which contains L3VPN service configs
+  hosts: ios-routers
+  gather_facts: no
+
+  vars:
+  - path_configs: "/vagrant/NetAutomation_materials/Final-solution/l3vpn/config"
+
+  tasks:
+  - ios_config:
+      src:      "{{path_configs}}/{{inventory_hostname}}-service-config.cfg"
+      host:     "{{ansible_host}}"
+      username: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+
+- name: Deploy a configuration snippet on Cisco IOS Switches which contains L3VPN service configs
+  hosts: ios-switches
+  gather_facts: no
+
+  vars:
+  - path_configs: "/vagrant/NetAutomation_materials/Final-solution/l3vpn/config"
+
+  tasks:
+  - ios_config:
+      src:      "{{path_configs}}/{{inventory_hostname}}-service-config.cfg"
+      host:     "{{ansible_host}}"
+      username: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"

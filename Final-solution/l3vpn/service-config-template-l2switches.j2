@@ -1,0 +1,23 @@
+#jinja2: lstrip_blocks: True
+!
+{% for l3vpn,l3vpn_content in l3vpns.iteritems() %}
+{% set vrfname = l3vpn %}
+{% for switch,swvalues in switches | dictsort if switch == inventory_hostname %}
+{% for site in l3vpn_content.list_of_sites if site.name == swvalues.site %}
+{% set vlan_id = site.nodes[0].interfaces[0].vlan_id %}
+!
+! ------- VRF {{ vrfname }} Configuration ----------------
+!
+vlan {{ vlan_id }}
+ name vrf{{ vrfname }}-LAN
+!
+interface GigabitEthernet2/0
+ description H1
+ switchport mode access
+ switchport access vlan {{ vlan_id }}
+ media-type rj45
+ negotiation auto
+!
+{% endfor %}
+{% endfor %}
+{% endfor %}

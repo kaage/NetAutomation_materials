@@ -14,9 +14,12 @@
     run_once: true
 
   - include_vars: "infra-datamodel-mpls-backbone.yml"
+    run_once: true
+    
   - include_vars:
       file: "service-datamodel-l3vpn-hl.yml"
       name: l3vpns
+    run_once: true
 
   - template: src="l3vpn/service-hl2ll-template-l3vpn.j2" dest={{path_configs}}/service-datamodel-l3vpn-ll.yml
     run_once: true

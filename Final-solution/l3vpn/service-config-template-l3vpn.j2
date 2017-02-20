@@ -1,9 +1,9 @@
 #jinja2: lstrip_blocks: True
 
 
-{% for l3vpn in l3vpns %}
- {% set rd = l3vpn.values()[0].rd %}
- {% set vrfname = l3vpn.keys()[0] %}
+{% for l3vpn,l3vpn_content in l3vpns.iteritems() %}
+ {% set rd = l3vpn_content.rd %}
+ {% set vrfname = l3vpn %}
 !
 ! ------- VRF {{ vrfname }} Configuration ----------------
 !
@@ -17,7 +17,7 @@ vrf definition {{ vrfname }}
   route-target import {{ rd }}
  exit-address-family
 !
-{% for site in l3vpn.values()[0].list_of_sites %}
+{% for site in l3vpn_content.list_of_sites %}
 {% for node in site.nodes %}
 {% if node.name == inventory_hostname %}
 {% for interface in node.interfaces %}
@@ -65,9 +65,3 @@ ip route vrf {{ vrfname }} 0.0.0.0 0.0.0.0 172.16.1.1
 {% endif %}
 !
 {% endfor %}
-
-
-
-
-
-

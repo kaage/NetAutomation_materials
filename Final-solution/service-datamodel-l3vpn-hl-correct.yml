@@ -1,6 +1,5 @@
 # --------------------------------------------------------
-# L3VPN service high level data model definition
-# (broken to validate input data validation catches errors)
+# L3VPN service high level data model definition for validations testing
 # -
 # Data model
 # * Dictionary of L3VPNs

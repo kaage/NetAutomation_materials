@@ -63,3 +63,11 @@ nodes:
     id: 5
     lo0_ip: 10.255.255.5
     site: S2
+
+switches:
+  SW10:
+    site: S1
+  SW20:
+    site: S2
+
+services_prefix: 172.16.0.0/16
