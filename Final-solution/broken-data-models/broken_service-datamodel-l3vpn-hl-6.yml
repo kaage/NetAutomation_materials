@@ -20,7 +20,7 @@ A:
 B:
   connection_to_firewall: TRUE
   id: 2
-  prefix: 172.16.2,0/24
+  prefix: 172.16.2.0/24
   sites:
   - S1
   - S2
@@ -28,7 +28,7 @@ B:
 C:
   connection_to_firewall: TRUE
   id: 3
-  prefix: 172.16.3.0/24
+  prefix: 172.16.2.0/25
   sites:
   - S1
   - S2

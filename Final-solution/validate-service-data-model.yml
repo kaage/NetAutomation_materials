@@ -13,9 +13,6 @@
       file: "{{svcs}}"
       name: l3vpns
 
-  - debug:
-      msg: "{{l3vpns}}"
-
   - name: 2 - Check wether l3vpns is defined in the Data Model
     assert:
       that: l3vpns is defined
@@ -54,11 +51,10 @@
       msg: "Prefix is not valid ipv4 prefix"
     with_items: "{{l3vpns.values()}}"
 
-# This test doesn't exaclty look for overlapping prefixes, it just compare exaclty duplicate ones. New python plugin is needed to chec this. Let's see if I'm able to develop one.
   - name: 6 - Check if prefix is unique
     assert:
-      that: l3vpns.values()|map(attribute='prefix')|list|unique|length == l3vpns|length
-      msg: "L3vpns ID is not unique"
+      that: not l3vpns.values()|map(attribute='prefix')|list|net_overlap
+      msg: "L3vpns prefixes are not unique"
 
   - name: 7 - Check if sites is list
     assert:
