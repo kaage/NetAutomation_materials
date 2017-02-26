@@ -104,7 +104,7 @@ Broken data model for each scenario is below:
 ## 5 - Future Development
 
 Here are future steps when developing data models:
-* Jinja2 templates are not ready for Switches nor Firewall
+* Jinja2 templates are not ready for Firewall
 * There is lots of refactoring needed to make data models clear and easy to use
 * Develop Jinja2 template for creating L3VPN diagram
 

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config version="7.1.0" urldb="paloaltonetworks">
+  <devices>
+    <entry name="localhost.localdomain">
+      <network>
+        <interface>
+          <ethernet>
+            <entry name="ethernet1/2">
+              <layer3>
+                <units>
+                  <entry name="ethernet1/2.20">
+                    <ipv6>
+                      <neighbor-discovery>
+                        <router-advertisement>
+                          <enable>no</enable>
+                        </router-advertisement>
+                      </neighbor-discovery>
+                    </ipv6>
+                    <ndp-proxy>
+                      <enabled>no</enabled>
+                    </ndp-proxy>
+                    <adjust-tcp-mss>
+                      <enable>no</enable>
+                    </adjust-tcp-mss>
+                    <ip>
+                      <entry name="172.16.2.1/30"/>
+                    </ip>
+                    <tag>20</tag>
+                    <interface-management-profile>allow-ping</interface-management-profile>
+                  </entry>
+                </units>
+              </layer3>
+            </entry>
+          </ethernet>
+        </interface>
+      </network>
+    </entry>
+  </devices>
+</config>

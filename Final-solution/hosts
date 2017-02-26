@@ -6,7 +6,8 @@ ios-routers
 ios-switches
 
 [ios:vars]
-ansible_connection=local
+ansible_user=cisco
+ansible_ssh_pass=cisco
 
 [ios-routers]
 R1
@@ -20,9 +21,12 @@ SW10
 SW20
 
 
-[paloalto]
+[pa-fws]
 FW1
 
+[pa-fws:vars]
+ansible_user=admin
+ansible_ssh_pass=admin
+
 [all:vars]
-ansible_user=cisco
-ansible_ssh_pass=cisco
+ansible_connection=local

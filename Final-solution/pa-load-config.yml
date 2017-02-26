@@ -1,0 +1,48 @@
+---
+- hosts: pa-fws
+  gather_facts: no
+  vars:
+    cfg_file: pa-configs/changes.xml
+
+  tasks:
+  - name: wait for SSH (timeout 10min)
+    wait_for: port=22 host="{{inventory_hostname}}" search_regex=SSH timeout=600
+
+  - name: checking if device ready
+    panos_check:
+      ip_address: "{{inventory_hostname}}"
+      password: "{{ansible_ssh_pass}}"
+    register: result
+    until: not result|failed
+    retries: 10
+    delay: 10
+
+  - name: import configuration
+    panos_import:
+      ip_address: "{{inventory_hostname}}"
+      password: "{{ansible_ssh_pass}}"
+      file: "{{cfg_file}}"
+      category: "configuration"
+    register: result
+
+  - name: load configuration
+    panos_loadcfg:
+      ip_address: "{{inventory_hostname}}"
+      password: "{{ansible_ssh_pass}}"
+      file: "{{result.filename}}"
+      commit: False
+
+  - name: commit
+    panos_commit:
+      ip_address: "{{inventory_hostname}}"
+      password: "{{ansible_ssh_pass}}"
+      sync: False
+
+  - name: waiting for commit
+    panos_check:
+      ip_address: "{{inventory_hostname}}"
+      password: "{{ansible_ssh_pass}}"
+    register: result
+    until: not result|failed
+    retries: 10
+    delay: 10
